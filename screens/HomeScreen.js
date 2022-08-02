@@ -23,14 +23,27 @@ export default function HomeScreen(props) {
   
   */
 
-  var handleSubmitSignUp = async () => {
-    console.log("🤖 SignUp infos: ", signUpEmail, signUpPassword);
+    /*
+    var userData = {email: signUpEmail, password: signUpPassword};
+    useEffect(() => {
+      AsyncStorage.getItem('email', function (error, data) {
+        if(data){
+          setSignUpEmail(data)
+          setUserExists(true)
+          console.log("💁‍♀️ The email is", data);
+        }
+      })
+    }, [userExists]);
+*/
+    
+    var handleSubmitSignUp = async () => {
+        console.log("🤖 SignUp infos: ", signUpEmail, signUpPassword);
 
-    const data = await fetch("/sign-up", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `emailFromFront=${signUpEmail}&passwordFromFront=${signUpPassword}`,
-    });
+        const data = await fetch("/sign-up", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: `emailFromFront=${signUpEmail}&passwordFromFront=${signUpPassword}`,
+        });
 
     const body = await data.json();
 
@@ -42,6 +55,56 @@ export default function HomeScreen(props) {
     }
   };
 
+    var tabErrorsSignUp = listErrorsSignUp.map((error, i) => {
+        return <p>{error}</p>;
+    });
+
+    
+
+    return(
+        <ImageBackground source={require('../assets/home.jpg')} style={styles.container}>
+            <Text style={styles.basic}>S'inscrire ou se connecter</Text>
+            <Text>email</Text>
+        <Input
+          containerStyle={{ marginBottom: 25, width: '70%' }}
+          inputStyle={{ marginLeft: 10 }}
+          onChangeText={(val) => setSignUpEmail(val.toLowerCase())}/>
+          <Text>Mot de passe</Text>
+        <Input
+          containerStyle={{ marginBottom: 25, width: '70%' }}
+          inputStyle={{ marginLeft: 10 }}
+          onChangeText={(val) => setSignUpPassword(val)}/>
+
+            {tabErrorsSignUp}
+
+        <Button
+  
+          title="S'inscrire ou se connecter avec mon email"
+          type="solid"
+          buttonStyle={{ backgroundColor: "#0CA789" }}
+          onPress={() => { 
+            props.navigation.navigate('BottomNavigator', { screen: 'Research' })
+            handleSubmitSignUp()
+         }}
+        />
+        <Button
+  
+  title="Continuer avec Facebook"
+  type="solid"
+  buttonStyle={{ backgroundColor: "#3b5998" }}
+  onPress={() => { props.navigation.navigate('BottomNavigator', { screen: 'Research' }) }}
+/>
+<Button
+  title="Continuer avec Google"
+  type="solid"
+  buttonStyle={{ backgroundColor: "#000000" }}
+  onPress={() => { 
+    props.navigation.navigate('BottomNavigator', { screen: 'Research' }) }}
+/>
+  
+  
+      </ImageBackground>
+    );
   if (userExists) {
     return <Redirect to="/Research" />;
   }
