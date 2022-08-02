@@ -67,9 +67,10 @@ export default function App() {
     // <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Garden" component={GardenScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="Producer" component={ProducerScreen} />
+        <Stack.Screen name="Garden" component={GardenScreen} />
         <Stack.Screen name="BottomNavigator" component={BottomNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
