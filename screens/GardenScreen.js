@@ -1,24 +1,84 @@
 const { useState, useEffect } = require("react");
-const { View } = require("react-native");
-const productName = require("../components/productName");
+const ProductName = require("../components/productName");
+const ProductIcon = require("../components/productIcon");
+const LikeIcon = require("../components/LikeIcon");
+const AddIcon = require("../components/AddIcon");
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import { Shadow } from "react-native-shadow-2";
 
 export default function GardenScreen() {
-  [productList, setProductList] = useState([]);
+  const [productList, setProductList] = useState([]);
 
-  useEffect(async (product) => {
-    const load = async () => {
-      const product_id = "62e7d11b98ac631e4375fc58";
-      const loadProductList = await fetch("http://10.2.1.56:3000/product%22");
-      const response = loadProductList.json;
-      setProductList(response);
-    };
+  useEffect(() => {
+    (async () => {
+      console.log("garden started");
+      const loadProductList = await fetch("http://10.2.1.56:3000/product");
+      const response = await loadProductList.json();
+      console.log("response", response.product);
+
+      setProductList(response.product);
+    })();
   }, []);
 
-  const product_id = "62e7d11b98ac631e4375fc58";
+  console.log("liste", productList);
 
-  const CardList = productList.map((product) => {
-    return productName(product);
+  const CardList = productList.map((product, i) => {
+    return (
+      <View
+        key={i}
+        style={{
+          flexDirection: "row",
+          padding: 5,
+        }}
+      >
+        <Shadow distance={3} key={i}>
+          <View
+            key={i}
+            style={{
+              padding: 5,
+              margin: 1,
+              width: 160,
+              height: 160,
+              backgroundColor: "white",
+              borderRadius: 5,
+            }}
+          >
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-around" }}
+            >
+              <ProductIcon />
+              <AddIcon />
+              <LikeIcon />
+            </View>
+            <View>
+              <ProductName
+                name={product.name}
+                species={product.species_name}
+                label={product.label}
+              />
+            </View>
+          </View>
+        </Shadow>
+      </View>
+    );
   });
 
-  return <View>{CardList}</View>;
+  console.log("cardlist", CardList);
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "white",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <View>
+        <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+          {CardList}
+        </View>
+      </View>
+    </View>
+  );
 }
