@@ -21,15 +21,15 @@ const productName = (product) => {
   );
 };
 
-const styles = StyleSheet.create({
-  name: {
-    fontFamily: "Dosis",
-    fontWeight: "bold",
-  },
-  species: {
-    fontFamily: "Dosis",
-    fontWeight: "light",
-  },
-});
+// const styles = StyleSheet.create({
+// //   name: {
+// //     fontFamily: "Dosis",
+// //     fontWeight: "bold",
+// //   },
+// //   species: {
+// //     fontFamily: "Dosis",
+// //     fontWeight: "light",
+// //   },
+// // });
 
 module.exports = productName;

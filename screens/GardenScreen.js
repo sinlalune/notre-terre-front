@@ -2,7 +2,7 @@ const { useState, useEffect } = require("react");
 const { View } = require("react-native");
 const productName = require("../components/productName");
 
-function GardenScreen() {
+export default function GardenScreen() {
   [productList, setProductList] = useState([]);
 
   useEffect(async (product) => {
