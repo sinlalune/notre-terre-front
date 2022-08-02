@@ -1,4 +1,5 @@
 import React from "react";
+import * as Font from "expo-font";
 import {
   StyleSheet,
   View,
@@ -7,29 +8,23 @@ import {
   ScrollView,
   TextInput,
 } from "react-native";
-import { useFonts } from "expo-font";
 
-const productName = (product) => {
-  // useFonts({
-  //   Dosis: require("../assets/fonts/Dosis.ttf"),
-  // });
+import { Icon } from "@rneui/themed";
+
+const ProductName = (product) => {
   return (
-    <View style={styles.tag}>
-      <Text style={styles.name}>{product.name}</Text>
-      <Text style={styles.species}>{product.species}</Text>
+    <View>
+      <Text style={{ fontWeight: "bold", color: "#4f4e4d" }}>
+        {product.name}
+      </Text>
+      <Text style={{ fontWeight: "300", color: "#4f4e4d" }}>
+        {product.species}
+      </Text>
+      <Text style={{ fontWeight: "800", color: "#0CA789" }}>
+        {product.label}
+      </Text>
     </View>
   );
 };
 
-// const styles = StyleSheet.create({
-// //   name: {
-// //     fontFamily: "Dosis",
-// //     fontWeight: "bold",
-// //   },
-// //   species: {
-// //     fontFamily: "Dosis",
-// //     fontWeight: "light",
-// //   },
-// // });
-
-module.exports = productName;
+module.exports = ProductName;
