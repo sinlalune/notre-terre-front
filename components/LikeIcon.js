@@ -20,7 +20,7 @@ const LikeIcon = (product) => {
   // console.log("font loaded");
   return (
     <View>
-      <Icon style={styles.icon} name="fa-solid fa-heart" color="red" />
+      <Icon style={styles.icon} name="heart" type="font-awesome" color="red" />
     </View>
   );
 };

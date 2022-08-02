@@ -8,7 +8,7 @@ import {
   ScrollView,
   TextInput,
 } from "react-native";
-import { Icon } from "@rneui/themed";
+import { Icon } from "react-native-elements";
 
 const AddIcon = (product) => {
   // const loadFonts = async () => {
@@ -22,7 +22,8 @@ const AddIcon = (product) => {
     <View>
       <Icon
         style={styles.icon}
-        name="fa-solid fa-circle-plus"
+        name="plus"
+        type="font-awesome"
         color="#0CA789"
       />
     </View>

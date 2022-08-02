@@ -17,7 +17,7 @@ const ProductName = (product) => {
       <Text style={{ fontWeight: "bold", color: "#4f4e4d" }}>
         {product.name}
       </Text>
-      <Text style={{ fontWeight: "200", color: "#4f4e4d" }}>
+      <Text style={{ fontWeight: "300", color: "#4f4e4d" }}>
         {product.species}
       </Text>
       <Text style={{ fontWeight: "800", color: "#0CA789" }}>

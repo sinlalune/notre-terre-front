@@ -1,8 +1,10 @@
 const { useState, useEffect } = require("react");
 const ProductName = require("../components/productName");
+const ProductCard = require("../components/ProductCard");
 const ProductIcon = require("../components/productIcon");
 const LikeIcon = require("../components/LikeIcon");
 const AddIcon = require("../components/AddIcon");
+
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import { Shadow } from "react-native-shadow-2";
 
@@ -24,42 +26,12 @@ export default function GardenScreen() {
 
   const CardList = productList.map((product, i) => {
     return (
-      <View
+      <ProductCard
         key={i}
-        style={{
-          flexDirection: "row",
-          padding: 5,
-        }}
-      >
-        <Shadow distance={3} key={i}>
-          <View
-            key={i}
-            style={{
-              padding: 5,
-              margin: 1,
-              width: 160,
-              height: 160,
-              backgroundColor: "white",
-              borderRadius: 5,
-            }}
-          >
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-around" }}
-            >
-              <ProductIcon />
-              <AddIcon />
-              <LikeIcon />
-            </View>
-            <View>
-              <ProductName
-                name={product.name}
-                species={product.species_name}
-                label={product.label}
-              />
-            </View>
-          </View>
-        </Shadow>
-      </View>
+        name={product.name}
+        species={product.species_name}
+        label={product.label}
+      />
     );
   });
 
