@@ -10,9 +10,9 @@ import {
 import { useFonts } from "expo-font";
 
 const productName = (product) => {
-  useFonts({
-    Dosis: require("../assets/fonts/Dosis.ttf"),
-  });
+  // useFonts({
+  //   Dosis: require("../assets/fonts/Dosis.ttf"),
+  // });
   return (
     <View style={styles.tag}>
       <Text style={styles.name}>{product.name}</Text>
