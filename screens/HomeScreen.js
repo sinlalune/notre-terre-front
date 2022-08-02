@@ -24,6 +24,18 @@ export default function HomeScreen(props) {
   
   */
 
+    /*
+    var userData = {email: signUpEmail, password: signUpPassword};
+    useEffect(() => {
+      AsyncStorage.getItem('email', function (error, data) {
+        if(data){
+          setSignUpEmail(data)
+          setUserExists(true)
+          console.log("💁‍♀️ The email is", data);
+        }
+      })
+    }, [userExists]);
+*/
     
     var handleSubmitSignUp = async () => {
         console.log("🤖 SignUp infos: ", signUpEmail, signUpPassword);
@@ -51,6 +63,8 @@ export default function HomeScreen(props) {
     var tabErrorsSignUp = listErrorsSignUp.map((error, i) => {
         return <p>{error}</p>;
     });
+
+    
 
     return(
         <ImageBackground source={require('../assets/home.jpg')} style={styles.container}>

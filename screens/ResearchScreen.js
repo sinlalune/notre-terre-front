@@ -5,7 +5,10 @@ import React, { useState, useEffect } from "react";
 import MapView, { Marker } from "react-native-maps";
 
 // Import Input
-import {Input} from 'react-native-elements'
+import {Input, Button} from 'react-native-elements';
+
+// Import of ScrollView
+import {ScrollView} from 'react-native';
 
 //Import of components for Location and Permissions
 import * as Location from "expo-location";
@@ -13,6 +16,8 @@ import * as Permissions from "expo-permissions";
 
 import { View, Text  } from 'react-native';
 
+// Import of Icons
+import {Ionicons} from '@expo/vector-icons';
 
 // ASKS PERMISSIONS FOR LOCALISATION
 
@@ -41,12 +46,15 @@ export default function ResearchScreen() {
 
     return ( 
     <>
-<Input
+
+    
+<Input 
       containerStyle = {{marginBottom: 10, width: '70%'}}
       inputStyle={{marginLeft: 10}}
       placeholder='Fraise, Paris ...'
   /> 
-    <MapView style={{ flex: 1 }}
+
+    <MapView style={{ flex: 1, marginLeft: 10, marginRight: 10}}
     region={{
         latitude: currentLatitude,
         longitude: currentLongitude,
@@ -58,6 +66,64 @@ export default function ResearchScreen() {
         title="Your Position"
         description="You are here" />
 </MapView>
+<ScrollView style={{ marginTop: 10, flex: 3}}>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>      
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>      
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>      
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>
+            <Text>Resultats</Text>      
+            <Text>Resultats</Text>
+      
+            {/* {cardList} */}
+</ScrollView>
 </>
     ); }
 
+
+// <Button title="Filter" icon={<Ionicons name="options" size={20} color="#0CA789" />}></Button> TO PUT AFTER INPUT
