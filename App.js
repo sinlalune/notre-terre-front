@@ -1,3 +1,6 @@
+import { LogBox } from "react-native";
+LogBox.ignoreLogs([""]);
+
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -30,36 +33,36 @@ const Stack = createStackNavigator();
 // const store = createStore(combineReducers({NAME OF REDUCER}));
 
 const BottomNavigator = () => {
-  return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color }) => {
-          let iconName;
+	return (
+		<Tab.Navigator
+			screenOptions={({ route }) => ({
+				tabBarIcon: ({ color }) => {
+					let iconName;
 
-          if (route.name == "Garden") {
-            iconName = "leaf";
-          } else if (route.name == "Research") {
-            iconName = "ios-search-sharp";
-          } else if (route.name == "Basket") {
-            iconName = "basket";
-          }
+					if (route.name == "Garden") {
+						iconName = "leaf";
+					} else if (route.name == "Research") {
+						iconName = "ios-search-sharp";
+					} else if (route.name == "Basket") {
+						iconName = "basket";
+					}
 
-          return <Ionicons name={iconName} size={25} color={color} />;
-        },
-      })}
-      tabBarOptions={{
-        activeTintColor: "#000000",
-        inactiveTintColor: "#FFFFFF",
-        style: {
-          backgroundColor: "#0CA789",
-        },
-      }}
-    >
-      <Tab.Screen name="Garden" component={GardenScreen} />
-      <Tab.Screen name="Research" component={ResearchScreen} />
-      <Tab.Screen name="Basket" component={BasketScreen} />
-    </Tab.Navigator>
-  );
+					return <Ionicons name={iconName} size={25} color={color} />;
+				},
+			})}
+			tabBarOptions={{
+				activeTintColor: "#000000",
+				inactiveTintColor: "#FFFFFF",
+				style: {
+					backgroundColor: "#0CA789",
+				},
+			}}
+		>
+			<Tab.Screen name="Garden" component={GardenScreen} />
+			<Tab.Screen name="Research" component={ResearchScreen} />
+			<Tab.Screen name="Basket" component={BasketScreen} />
+		</Tab.Navigator>
+	);
 };
 
 export default function App() {
@@ -78,10 +81,10 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+	container: {
+		flex: 1,
+		backgroundColor: "#fff",
+		alignItems: "center",
+		justifyContent: "center",
+	},
 });

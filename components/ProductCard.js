@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { Shadow } from "react-native-shadow-2";
 const ProductName = require("../components/productName");
+const ProductQuantity = require("../components/ProductQuantity");
+const ProductAvaibility = require("../components/ProductAvaibility");
 const ProductIcon = require("../components/productIcon");
 const LikeIcon = require("../components/LikeIcon");
 const AddIcon = require("../components/AddIcon");
@@ -31,8 +33,8 @@ const ProductCard = (product, i) => {
           style={{
             padding: 5,
             margin: 1,
-            width: 160,
-            height: 160,
+            width: 165,
+            height: 165,
             backgroundColor: "white",
             borderRadius: 5,
           }}
@@ -47,12 +49,18 @@ const ProductCard = (product, i) => {
             <AddIcon />
             <LikeIcon />
           </View>
-          <View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
+          >
             <ProductName
               name={product.name}
               species={product.species}
               label={product.label}
             />
+            <View>
+              <ProductQuantity kilo_price={product.kilo_price} />
+              <ProductAvaibility date_harvest={product.date_harvest} />
+            </View>
           </View>
         </View>
       </Shadow>

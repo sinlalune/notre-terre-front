@@ -31,6 +31,8 @@ export default function GardenScreen() {
         name={product.name}
         species={product.species_name}
         label={product.label}
+        kilo_price={product.kilo_price}
+        date_harvest={product.date_harvest}
       />
     );
   });
@@ -41,13 +43,20 @@ export default function GardenScreen() {
     <View
       style={{
         flex: 1,
+        flexWrap: "wrap",
         backgroundColor: "white",
         justifyContent: "center",
         alignItems: "center",
       }}
     >
       <View>
-        <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            width: "100%",
+          }}
+        >
           {CardList}
         </View>
       </View>
