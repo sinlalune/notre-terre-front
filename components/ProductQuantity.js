@@ -25,7 +25,11 @@ const ProductQuantity = (product) => {
         margin: 1,
       }}
     >
-      <Text style={{ fontWeight: "800", color: "white" }}>
+      <Image
+        style={styles.icon}
+        source={require("../assets/weight-kilo.png")}
+      />
+      <Text style={{ fontSize: 10, fontWeight: "800", color: "white" }}>
         {product.kilo_price} €/kg
       </Text>
     </View>
@@ -36,7 +40,6 @@ const styles = StyleSheet.create({
   icon: {
     width: 15,
     height: 15,
-    marginTop: 5,
     marginRight: 5,
   },
 });

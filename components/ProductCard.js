@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { Shadow } from "react-native-shadow-2";
 const ProductName = require("../components/productName");
+const ProducerInfo = require("../components/ProducerInfo");
 const ProductQuantity = require("../components/ProductQuantity");
 const ProductAvaibility = require("../components/ProductAvaibility");
 const ProductIcon = require("../components/productIcon");
@@ -31,7 +32,7 @@ const ProductCard = (product, i) => {
         <View
           key={i}
           style={{
-            padding: 5,
+            padding: 10,
             margin: 1,
             width: 165,
             height: 165,
@@ -42,7 +43,8 @@ const ProductCard = (product, i) => {
           <View
             style={{
               flexDirection: "row",
-              justifyContent: "space-around",
+              justifyContent: "space-between",
+              marginBottom: 10,
             }}
           >
             <ProductIcon />
@@ -50,17 +52,25 @@ const ProductCard = (product, i) => {
             <LikeIcon />
           </View>
           <View
-            style={{ flexDirection: "row", justifyContent: "space-around" }}
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <ProductName
-              name={product.name}
-              species={product.species}
-              label={product.label}
-            />
-            <View>
+            <View style={{ alignSelf: "flex-start" }}>
+              <ProductName
+                name={product.name}
+                species={product.species}
+                label={product.label}
+              />
+            </View>
+            <View style={{ alignSelf: "flex-end" }}>
               <ProductQuantity kilo_price={product.kilo_price} />
               <ProductAvaibility date_harvest={product.date_harvest} />
             </View>
+          </View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <ProducerInfo producer={product.producer} />
+            <View></View>
           </View>
         </View>
       </Shadow>

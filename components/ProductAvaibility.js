@@ -12,8 +12,8 @@ import {
 import { Icon } from "@rneui/themed";
 
 const ProductAvaibility = (product) => {
-  const harvest = new Date("09/06/2022");
-
+  // const harvest = product.date_harvest;
+  const harvest = new Date(product.date_harvest);
   let today = new Date();
   console.log("harvest", harvest, "today", today);
   const difference = harvest - today;
@@ -33,7 +33,8 @@ const ProductAvaibility = (product) => {
         margin: 1,
       }}
     >
-      <Text style={{ fontWeight: "800", color: "white" }}>
+      <Image style={styles.icon} source={require("../assets/clock.png")} />
+      <Text style={{ fontSize: 10, fontWeight: "800", color: "white" }}>
         ~ {availability} J
       </Text>
     </View>
@@ -44,7 +45,6 @@ const styles = StyleSheet.create({
   icon: {
     width: 15,
     height: 15,
-    marginTop: 5,
     marginRight: 5,
   },
 });

@@ -14,7 +14,9 @@ export default function GardenScreen() {
   useEffect(() => {
     (async () => {
       console.log("garden started");
-      const loadProductList = await fetch("http://10.2.1.56:3000/product");
+      const loadProductList = await fetch(
+        "https://aqueous-shore-35402.herokuapp.com/productlist"
+      );
       const response = await loadProductList.json();
       console.log("response", response.product);
 
@@ -33,6 +35,7 @@ export default function GardenScreen() {
         label={product.label}
         kilo_price={product.kilo_price}
         date_harvest={product.date_harvest}
+        producer={product.producer}
       />
     );
   });

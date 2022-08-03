@@ -14,13 +14,13 @@ import { Icon } from "@rneui/themed";
 const ProductName = (product) => {
   return (
     <View>
-      <Text style={{ fontWeight: "bold", color: "#4f4e4d" }}>
+      <Text style={{ fontSize: 12, fontWeight: "bold", color: "#4f4e4d" }}>
         {product.name}
       </Text>
-      <Text style={{ fontWeight: "300", color: "#4f4e4d" }}>
+      <Text style={{ fontSize: 10, fontWeight: "300", color: "#4f4e4d" }}>
         {product.species}
       </Text>
-      <Text style={{ fontWeight: "800", color: "#0CA789" }}>
+      <Text style={{ fontSize: 10, fontWeight: "800", color: "#0CA789" }}>
         {product.label}
       </Text>
     </View>
