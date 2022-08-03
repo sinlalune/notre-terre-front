@@ -16,12 +16,13 @@ export default function HomeScreen(props) {
   const [userExists, setUserExists] = useState(false);
 
   const [listErrorsSignUp, setListErrorsSignUp] = useState([]);
+  const [listErrorsSignIn, setListErrorsSignIn] = useState([]);
 
-  /*
+ 
     const [signInEmail, setSignInEmail] = useState('')
     const [signInPassword, setSignInPassword] = useState('')
   
-  */
+  
 
   var handleSubmitSignUp = async () => {
     console.log("🤖 SignUp infos: ", signUpEmail, signUpPassword);
@@ -42,6 +43,27 @@ export default function HomeScreen(props) {
     }
   };
 
+  var handleSubmitSignIn = async () => {
+		console.log("🤓 SignIn infos : ", signInEmail, signInPassword);
+
+		const data = await fetch("/sign-in", {
+			method: "POST",
+			headers: { "Content-Type": "application/x-www-form-urlencoded" },
+			body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`,
+		});
+
+		const body = await data.json();
+
+		console.log(body);
+
+		if (body.result == true) {
+			props.addToken(body.searchUser.token);
+			setUserExists(true);
+		} else {
+			setListErrorsSignIn(body.error);
+		}
+	};
+
   if (userExists) {
     return <Redirect to="/Research" />;
   }
@@ -50,36 +72,75 @@ export default function HomeScreen(props) {
     return <p>{error}</p>;
   });
 
+  var tabErrorsSignIn = listErrorsSignIn.map((error, i) => {
+		return <p>{error}</p>;
+	});
+
   return (
     <ImageBackground
       source={require("../assets/home.jpg")}
       style={styles.container}
     >
-      <Text style={styles.basic}>S'inscrire ou se connecter</Text>
+      <Text style={{ marginBottom: 25}}>S'inscrire</Text>
       <Text>email</Text>
       <Input
-        containerStyle={{ marginBottom: 25, width: "70%" }}
+      leftIcon={{ type: 'MaterialIcons', name: 'email' }}
+        containerStyle={{ width: "70%" }}
         inputStyle={{ marginLeft: 10 }}
         onChangeText={(val) => setSignUpEmail(val.toLowerCase())}
       />
       <Text>Mot de passe</Text>
       <Input
-        containerStyle={{ marginBottom: 25, width: "70%" }}
+        containerStyle={{ marginBottom: 25}}
         inputStyle={{ marginLeft: 10 }}
+        secureTextEntry={true}
         onChangeText={(val) => setSignUpPassword(val)}
       />
 
       {tabErrorsSignUp}
 
       <Button
-        title="S'inscrire ou se connecter avec mon email"
+      style={{ marginBottom: 25}}
+        title="S'inscrire avec mon email"
         type="solid"
         buttonStyle={{ backgroundColor: "#0CA789" }}
         onPress={() => {
-          props.navigation.navigate("BottomNavigator", { screen: "Garden" });
+          props.navigation.navigate("BottomNavigator", { screen: "Research" });
           handleSubmitSignUp();
         }}
       />
+
+      {/* Sign-In */}
+
+			<Text style={{ marginBottom: 25}}>Se connecter</Text>
+			<Text>email</Text>
+			<Input
+      leftIcon={{ type: 'MaterialIcons', name: 'email' }}
+				containerStyle={{ marginBottom: 25, width: "70%" }}
+				inputStyle={{ marginLeft: 10 }}
+				onChangeText={(val) => setSignInEmail(val.target.value.toLowerCase())}
+			/>
+			<Text>Mot de passe</Text>
+			<Input
+				containerStyle={{ marginBottom: 25, width: "70%" }}
+				inputStyle={{ marginLeft: 10 }}
+        secureTextEntry={true}
+				onChangeText={(val) => setSignInPassword(val.target.value)}
+			/>
+
+			{tabErrorsSignIn}
+
+			<Button
+				title="Se connecter"
+				type="solid"
+				buttonStyle={{ backgroundColor: "#0CA789" }}
+				onPress={() => {
+					props.navigation.navigate("BottomNavigator", { screen: "Research" });
+					handleSubmitSignIn();
+				}}
+			/>
+
+			{/* Connexion avec Facebook */}
       <Button
         title="Continuer avec Facebook"
         type="solid"
@@ -105,11 +166,18 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-  },
-  basic: {
-    fontFamily: "Dosis",
-  },
+  }
 });
+
+/* 
+function mapDispatchToProps(dispatch){
+  return{
+    addToken: function(token) {
+      dispatch({type: 'addToken', token:token})
+    }
+  }
+}
+*/
 
 /*
   function mapDispatchToProps(dispatch) {

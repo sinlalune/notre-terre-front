@@ -1,5 +1,6 @@
 //Import of React
 import React, { useState, useEffect } from "react";
+import { View, Text } from "react-native";
 
 //Import of MapView and Marker
 import MapView, { Marker } from "react-native-maps";
@@ -14,13 +15,13 @@ import { ScrollView } from "react-native";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 
-import { View, Text } from "react-native";
-
 // Import of Icons
 import { Ionicons } from "@expo/vector-icons";
 
-// ASKS PERMISSIONS FOR LOCALISATION
+const ProductCard = require("../components/ProductCard");
 
+
+// ASKS PERMISSIONS FOR LOCALISATION
 export default function ResearchScreen() {
   const [currentLatitude, setCurrentLatitude] = useState(0);
   const [currentLongitude, setCurrentLongitude] = useState(0);
@@ -39,6 +40,48 @@ export default function ResearchScreen() {
   }, []);
 
   console.log("This is the user position", currentLatitude, currentLongitude);
+
+
+  const [productList, setProductList] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      console.log("🤖 research page started");
+      const loadProductList = await fetch("http://10.2.1.56:3000/product");
+      const response = await loadProductList.json();
+      console.log("response", response.product);
+
+      setProductList(response.product);
+    })();
+  }, []);
+
+  console.log("liste", productList);
+
+  const CardList = productList.map((product, i) => {
+    return (
+      <ProductCard
+        key={i}
+        name={product.name}
+        species={product.species_name}
+        label={product.label}
+        price = {product.kilo_price}
+        domain={product.domain_adress}
+      />
+    );
+  });
+
+  console.log("cardlist", CardList);
+
+
+  const [listPOI, setListPoi] = useState([]);
+
+  var markerPOI = listPOI.map((POI, i) => {
+    return <Marker key={i} pinColor="blue" coordinate={{ latitude: POI.latitude, longitude: POI.longitude }}
+      title={POI.titre}
+      description={POI.description}
+    />
+  });
+  
 
   return (
     <>
@@ -65,37 +108,10 @@ export default function ResearchScreen() {
           title="Your Position"
           description="You are here"
         />
+        {markerPOI}
       </MapView>
       <ScrollView style={{ marginTop: 10, flex: 3 }}>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-        <Text>Resultats</Text>
-
-        {/* {cardList} */}
+        {CardList}
       </ScrollView>
     </>
   );
