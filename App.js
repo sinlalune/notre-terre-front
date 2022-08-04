@@ -22,10 +22,10 @@ import { Ionicons } from "@expo/vector-icons";
 //Import of all Screens
 import LoginScreen from "./screens/LoginScreen";
 import ProfileScreen from "./screens/ProfileScreen";
-
 import ProducerScreen from "./screens/ProducerScreen";
 import BasketScreen from "./screens/BasketScreen";
 import GardenScreen from "./screens/GardenScreen";
+import ResearchScreen from "./screens/ResearchScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -59,7 +59,7 @@ const BottomNavigator = () => {
       }}
     >
       <Tab.Screen name="Garden" component={GardenScreen} />
-
+      <Tab.Screen name="Research" component={ResearchScreen} />
       <Tab.Screen name="Basket" component={BasketScreen} />
     </Tab.Navigator>
   );
@@ -70,9 +70,7 @@ export default function App() {
     // <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Garden" component={GardenScreen} />
-
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="Producer" component={ProducerScreen} />
         <Stack.Screen name="BottomNavigator" component={BottomNavigator} />
