@@ -36,6 +36,9 @@ export default function GardenScreen() {
         kilo_price={product.kilo_price}
         date_harvest={product.date_harvest}
         producer={product.producer}
+        domain_name={product.domain_name}
+        domain_adress={product.domain_adress}
+        product_id={product._id}
       />
     );
   });

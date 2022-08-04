@@ -11,6 +11,7 @@ import {
 import { Shadow } from "react-native-shadow-2";
 const ProductName = require("../components/productName");
 const ProducerInfo = require("../components/ProducerInfo");
+const DomainInfo = require("../components/DomainInfo");
 const ProductQuantity = require("../components/ProductQuantity");
 const ProductAvaibility = require("../components/ProductAvaibility");
 const ProductIcon = require("../components/productIcon");
@@ -66,11 +67,11 @@ const ProductCard = (product, i) => {
               <ProductAvaibility date_harvest={product.date_harvest} />
             </View>
           </View>
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <ProducerInfo producer={product.producer} />
-            <View></View>
+          <View>
+            <DomainInfo
+              domain_name={product.domain_name}
+              product_id={product.product_id}
+            />
           </View>
         </View>
       </Shadow>
