@@ -15,7 +15,7 @@ export default function GardenScreen() {
     (async () => {
       console.log("garden started");
       const loadProductList = await fetch(
-        "https://sinlalune.herokuapp.com/card/productlist"
+        `https://${REACT_APP_API_BACKEND}/card/productlist`
       );
       const response = await loadProductList.json();
       console.log("response", response.product);
