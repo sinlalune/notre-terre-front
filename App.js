@@ -47,39 +47,6 @@ const BottomNavigator = () => {
             iconName = "basket";
           }
 
-<<<<<<< HEAD
-					return <Ionicons name={iconName} size={25} color={color} />;
-				},
-			})}
-			tabBarOptions={{
-				activeTintColor: "#000000",
-				inactiveTintColor: "#FFFFFF",
-				style: {
-					backgroundColor: "#0CA789",
-				},
-			}}
-		>
-			<Tab.Screen name="Research" component={ResearchScreen} />
-			<Tab.Screen name="Garden" component={GardenScreen} />
-			<Tab.Screen name="Basket" component={BasketScreen} />
-		</Tab.Navigator>
-	);
-};
-
-export default function App() {
-	return (
-		// <Provider store={store}>
-		<NavigationContainer>
-			<Stack.Navigator screenOptions={{ headerShown: false }}>
-				<Stack.Screen name="Login" component={LoginScreen} />
-				<Stack.Screen name="Profile" component={ProfileScreen} />
-				<Stack.Screen name="Producer" component={ProducerScreen} />
-				<Stack.Screen name="BottomNavigator" component={BottomNavigator} />
-			</Stack.Navigator>
-		</NavigationContainer>
-		// </Provider>
-	);
-=======
           return <Ionicons name={iconName} size={25} color={color} />;
         },
       })}
@@ -113,7 +80,6 @@ export default function App() {
     </NavigationContainer>
     // </Provider>
   );
->>>>>>> card
 }
 
 const styles = StyleSheet.create({
