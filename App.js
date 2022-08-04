@@ -22,7 +22,7 @@ import { Ionicons } from "@expo/vector-icons";
 //Import of all Screens
 import HomeScreen from "./screens/HomeScreen";
 import ProfileScreen from "./screens/ProfileScreen";
-import ResearchScreen from "./screens/ResearchScreen";
+
 import ProducerScreen from "./screens/ProducerScreen";
 import BasketScreen from "./screens/BasketScreen";
 import GardenScreen from "./screens/GardenScreen";
@@ -33,36 +33,36 @@ const Stack = createStackNavigator();
 // const store = createStore(combineReducers({NAME OF REDUCER}));
 
 const BottomNavigator = () => {
-	return (
-		<Tab.Navigator
-			screenOptions={({ route }) => ({
-				tabBarIcon: ({ color }) => {
-					let iconName;
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color }) => {
+          let iconName;
 
-					if (route.name == "Garden") {
-						iconName = "leaf";
-					} else if (route.name == "Research") {
-						iconName = "ios-search-sharp";
-					} else if (route.name == "Basket") {
-						iconName = "basket";
-					}
+          if (route.name == "Garden") {
+            iconName = "leaf";
+          } else if (route.name == "Research") {
+            iconName = "ios-search-sharp";
+          } else if (route.name == "Basket") {
+            iconName = "basket";
+          }
 
-					return <Ionicons name={iconName} size={25} color={color} />;
-				},
-			})}
-			tabBarOptions={{
-				activeTintColor: "#000000",
-				inactiveTintColor: "#FFFFFF",
-				style: {
-					backgroundColor: "#0CA789",
-				},
-			}}
-		>
-			<Tab.Screen name="Garden" component={GardenScreen} />
-			<Tab.Screen name="Research" component={ResearchScreen} />
-			<Tab.Screen name="Basket" component={BasketScreen} />
-		</Tab.Navigator>
-	);
+          return <Ionicons name={iconName} size={25} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: "#000000",
+        inactiveTintColor: "#FFFFFF",
+        style: {
+          backgroundColor: "#0CA789",
+        },
+      }}
+    >
+      <Tab.Screen name="Garden" component={GardenScreen} />
+
+      <Tab.Screen name="Basket" component={BasketScreen} />
+    </Tab.Navigator>
+  );
 };
 
 export default function App() {
@@ -70,10 +70,12 @@ export default function App() {
     // <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Garden" component={GardenScreen} />
+
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="Producer" component={ProducerScreen} />
-        <Stack.Screen name="BottomNavigator" component={BottomNavigator}  />
+        <Stack.Screen name="BottomNavigator" component={BottomNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
     // </Provider>
@@ -81,10 +83,10 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
-	},
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });

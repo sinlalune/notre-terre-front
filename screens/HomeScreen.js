@@ -102,11 +102,11 @@ export default function HomeScreen(props) {
   }
 
   var tabErrorsSignUp = listErrorsSignUp.map((error, i) => {
-    return <p>{error}</p>;
+    return <p key={i}>{error}</p>;
   });
 
   var tabErrorsSignIn = listErrorsSignIn.map((error, i) => {
-    return <p>{error}</p>;
+    return <p key={i}>{error}</p>;
   });
 
   return (
