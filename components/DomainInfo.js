@@ -40,7 +40,7 @@ const DomainInfo = (product) => {
     (async () => {
       console.log("producer adrress started");
       const loadProductInfo = await fetch(
-        "https://sinlalune.herokuapp.com/card/product?product_id=" +
+        `https://${REACT_APP_API_BACKEND}/card/product?product_id=` +
           product.product_id
       );
       const response = await loadProductInfo.json();
