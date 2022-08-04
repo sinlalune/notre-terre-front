@@ -18,7 +18,7 @@ const ProducerInfo = (product) => {
     (async () => {
       console.log("producer started started");
       const loadProducerInfo = await fetch(
-        "https://aqueous-shore-35402.herokuapp.com/producer?producer_id=" +
+        "https://sinlalune.herokuapp.com/card/producer?producer_id=" +
           product.producer
       );
       const response = await loadProducerInfo.json();
