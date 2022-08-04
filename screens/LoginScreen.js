@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 
 import Icon from "react-native-vector-icons/FontAwesome";
 
-import { REACT_APP_API_BACKEND } from "@env";
+import { useIsFocused } from "@react-navigation/native";
+
+import { API_BACKEND } from "@env";
 
 import {
 	View,
@@ -20,13 +22,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 //Connection to Redux
 import { connect } from "react-redux";
 
-export default function LoginScreen(props) {
-	console.log("API backend", REACT_APP_API_BACKEND);
+function LoginScreen(props) {
 	const [signUpEmail, setSignUpEmail] = useState("");
 	const [signUpPassword, setSignUpPassword] = useState("");
-	const [userExists, setUserExists] = useState(false);
 
-	console.log("url du backend", process.env.REACT_APP_BACKEND_URL);
+	console.log("Url du backend", process.env.API_BACKEND);
 
 	const [listErrorsSignUp, setListErrorsSignUp] = useState([]);
 	const [listErrorsSignIn, setListErrorsSignIn] = useState([]);
@@ -34,11 +34,15 @@ export default function LoginScreen(props) {
 	const [signInEmail, setSignInEmail] = useState("");
 	const [signInPassword, setSignInPassword] = useState("");
 
+	const isFocused = useIsFocused();
+
 	useEffect(() => {
 		AsyncStorage.getItem("user", (err, value) => {
-			console.log(value);
 			if (value) {
-				setUserExists(true);
+				console.log("🤓🤓🤓🤓🤓 JSON.parse(value)", JSON.parse(value));
+
+				props.saveUserData(JSON.parse(value));
+				props.navigation.navigate("BottomNavigator", { screen: "Research" });
 			}
 		});
 	}, []);
@@ -46,7 +50,7 @@ export default function LoginScreen(props) {
 	var handleSubmitSignUp = async () => {
 		console.log("🤖 SignUp infos: ", signUpEmail, signUpPassword);
 
-		const data = await fetch(`${REACT_APP_API_BACKEND}/users/sign-up`, {
+		const data = await fetch(`${API_BACKEND}/users/sign-up`, {
 			method: "POST",
 			headers: { "Content-Type": "application/x-www-form-urlencoded" },
 			body: `emailFromFront=${signUpEmail}&passwordFromFront=${signUpPassword}`,
@@ -56,12 +60,10 @@ export default function LoginScreen(props) {
 		console.log(body);
 
 		if (body.result) {
-			AsyncStorage.setItem("user", body.searchUser);
+			AsyncStorage.setItem("user", JSON.stringify(body.searchUser));
 
-			// props.addToken(body.token);
-			// setUserExists(true);
-			console.log(body);
-			props.navigation.navigate("BottomNavigator");
+			props.saveUserData(body.searchUser);
+			props.navigation.navigate("BottomNavigator", { screen: "Research" });
 		} else {
 			setListErrorsSignUp(body.error);
 		}
@@ -70,7 +72,7 @@ export default function LoginScreen(props) {
 	var handleSubmitSignIn = async () => {
 		console.log("🤓 SignIn infos : ", signInEmail, signInPassword);
 
-		const data = await fetch(`${REACT_APP_API_BACKEND}/users/sign-in`, {
+		const data = await fetch(`${API_BACKEND}/users/sign-in`, {
 			method: "POST",
 			headers: { "Content-Type": "application/x-www-form-urlencoded" },
 			body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`,
@@ -78,23 +80,17 @@ export default function LoginScreen(props) {
 
 		const body = await data.json();
 
-		console.log("enregistrement sign in : ", body);
+		console.log("Enregistrement sign in : ", body);
 
 		if (body.result) {
-			console.log("resultat à true :", true);
+			props.saveUserData(body.searchUser.token);
+			AsyncStorage.setItem("user", JSON.stringify(body.searchUser));
 
-			// props.addToken(body.searchUser.token);
-			AsyncStorage.setItem("user", body.searchUser);
-			props.navigation.navigate("BottomNavigator");
+			props.navigation.navigate("BottomNavigator", { screen: "Research" });
 		} else {
-			console.log("resultat à false :", false);
 			setListErrorsSignIn(body.error);
 		}
 	};
-
-	if (userExists) {
-		return 1;
-	}
 
 	var tabErrorsSignUp = listErrorsSignUp.map((error, i) => {
 		return <Text>{error}</Text>;
@@ -114,6 +110,9 @@ export default function LoginScreen(props) {
 					placeholder="Votre email"
 					onChangeText={(val) => setSignUpEmail(val.toLowerCase())}
 				/>
+
+				{/* Sign-Up */}
+
 				<Input
 					placeholder="Votre mot de passe"
 					secureTextEntry={true}
@@ -126,7 +125,9 @@ export default function LoginScreen(props) {
 						handleSubmitSignUp();
 					}}
 				/>
+
 				{/* Sign-In */}
+
 				<Text>Se connecter</Text>
 				<Input
 					placeholder="Votre email"
@@ -183,12 +184,6 @@ export default function LoginScreen(props) {
 						});
 					}}
 				/>
-				<View>
-					<Button
-						title="Delete all data dans le async storage"
-						onPress={() => AsyncStorage.clear()}
-					/>
-				</View>
 			</ImageBackground>
 		</View>
 	);
@@ -202,27 +197,12 @@ const styles = StyleSheet.create({
 	},
 });
 
-/* 
-function mapDispatchToProps(dispatch){
-  return{
-    addToken: function(token) {
-      dispatch({type: 'addToken', token:token})
-    }
-  }
+function mapDispatchToProps(dispatch) {
+	return {
+		saveUserData: function (data) {
+			dispatch({ type: "saveUserData", data: data });
+		},
+	};
 }
-*/
 
-/*
-  function mapDispatchToProps(dispatch) {
-    return {
-      onSubmitUser: function (email, password) {
-        dispatch({ type: 'saveUser', email: email, password: password, token:token })
-      }
-    }
-  }
-  
-  export default connect(
-    null,
-    mapDispatchToProps
-  )(HomeScreen);
-  */
+export default connect(null, mapDispatchToProps)(LoginScreen);
