@@ -46,7 +46,7 @@ export default function LoginScreen(props) {
 	var handleSubmitSignUp = async () => {
 		console.log("🤖 SignUp infos: ", signUpEmail, signUpPassword);
 
-		const data = await fetch("10.2.2.164:3000/users/sign-up", {
+		const data = await fetch(`${REACT_APP_API_BACKEND}/users/sign-up`, {
 			method: "POST",
 			headers: { "Content-Type": "application/x-www-form-urlencoded" },
 			body: `emailFromFront=${signUpEmail}&passwordFromFront=${signUpPassword}`,
@@ -70,7 +70,7 @@ export default function LoginScreen(props) {
 	var handleSubmitSignIn = async () => {
 		console.log("🤓 SignIn infos : ", signInEmail, signInPassword);
 
-		const data = await fetch("10.2.2.164:3000/users/sign-in", {
+		const data = await fetch(`${REACT_APP_API_BACKEND}/users/sign-in`, {
 			method: "POST",
 			headers: { "Content-Type": "application/x-www-form-urlencoded" },
 			body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`,
