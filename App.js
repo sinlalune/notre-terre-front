@@ -27,6 +27,7 @@ import { Ionicons } from "@expo/vector-icons";
 import LoginScreen from "./screens/LoginScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import ProducerScreen from "./screens/ProducerScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 import BasketScreen from "./screens/BasketScreen";
 import GardenScreen from "./screens/GardenScreen";
 import ResearchScreen from "./screens/ResearchScreen";
@@ -82,6 +83,7 @@ export default function App() {
 					<Stack.Screen name="Login" component={LoginScreen} />
 					<Stack.Screen name="Producer" component={ProducerScreen} />
 					<Stack.Screen name="BottomNavigator" component={BottomNavigator} />
+					<Stack.Screen name="Register" component={RegisterScreen} />
 				</Stack.Navigator>
 			</NavigationContainer>
 		</Provider>

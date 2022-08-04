@@ -39,7 +39,7 @@ function LoginScreen(props) {
 	useEffect(() => {
 		AsyncStorage.getItem("user", (err, value) => {
 			if (value) {
-				console.log("🤓🤓🤓🤓🤓 JSON.parse(value)", JSON.parse(value));
+				console.log("🌄🌄🌄 JSON.parse(value)", JSON.parse(value));
 
 				props.saveUserData(JSON.parse(value));
 				props.navigation.navigate("BottomNavigator", { screen: "Research" });
@@ -48,7 +48,7 @@ function LoginScreen(props) {
 	}, []);
 
 	var handleSubmitSignUp = async () => {
-		console.log("🤖 SignUp infos: ", signUpEmail, signUpPassword);
+		console.log("🤖🤖🤖 SignUp infos: ", signUpEmail, signUpPassword);
 
 		const data = await fetch(`${API_BACKEND}/users/sign-up`, {
 			method: "POST",
@@ -70,7 +70,7 @@ function LoginScreen(props) {
 	};
 
 	var handleSubmitSignIn = async () => {
-		console.log("🤓 SignIn infos : ", signInEmail, signInPassword);
+		console.log("🤓🤓🤓 SignIn infos : ", signInEmail, signInPassword);
 
 		const data = await fetch(`${API_BACKEND}/users/sign-in`, {
 			method: "POST",
@@ -147,10 +147,6 @@ function LoginScreen(props) {
 					}}
 				/>
 
-				<Text onPress={() => navigation.navigate("ResearchScreen")}>
-					Vous êtes nouveau ? Inscrivez-vous ici
-				</Text>
-
 				<View
 					style={{
 						flexDirection: "row",
@@ -184,6 +180,11 @@ function LoginScreen(props) {
 						});
 					}}
 				/>
+
+				<Button
+					title="Vous êtes nouveau ? Inscrivez-vous ici"
+					onPress={() => props.navigation.navigate("Register")}
+				></Button>
 			</ImageBackground>
 		</View>
 	);
