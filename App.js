@@ -20,7 +20,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
 //Import of all Screens
-import HomeScreen from "./screens/HomeScreen";
+import LoginScreen from "./screens/LoginScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import ResearchScreen from "./screens/ResearchScreen";
 import ProducerScreen from "./screens/ProducerScreen";
@@ -58,26 +58,26 @@ const BottomNavigator = () => {
 				},
 			}}
 		>
-			<Tab.Screen name="Garden" component={GardenScreen} />
 			<Tab.Screen name="Research" component={ResearchScreen} />
+			<Tab.Screen name="Garden" component={GardenScreen} />
 			<Tab.Screen name="Basket" component={BasketScreen} />
 		</Tab.Navigator>
 	);
 };
 
 export default function App() {
-  return (
-    // <Provider store={store}>
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
-        <Stack.Screen name="Producer" component={ProducerScreen} />
-        <Stack.Screen name="BottomNavigator" component={BottomNavigator}  />
-      </Stack.Navigator>
-    </NavigationContainer>
-    // </Provider>
-  );
+	return (
+		// <Provider store={store}>
+		<NavigationContainer>
+			<Stack.Navigator screenOptions={{ headerShown: false }}>
+				<Stack.Screen name="Login" component={LoginScreen} />
+				<Stack.Screen name="Profile" component={ProfileScreen} />
+				<Stack.Screen name="Producer" component={ProducerScreen} />
+				<Stack.Screen name="BottomNavigator" component={BottomNavigator} />
+			</Stack.Navigator>
+		</NavigationContainer>
+		// </Provider>
+	);
 }
 
 const styles = StyleSheet.create({
