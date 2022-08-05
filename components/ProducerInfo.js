@@ -12,6 +12,8 @@ const { useState, useEffect } = require("react");
 
 import { Icon } from "@rneui/themed";
 
+import { API_BACKEND } from "@env";
+
 const ProducerInfo = (product) => {
   const [producer, setProducer] = useState({});
   useEffect(() => {

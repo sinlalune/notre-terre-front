@@ -17,6 +17,8 @@ import {
 import { Shadow } from "react-native-shadow-2";
 import { API_BACKEND } from "@env";
 
+import { API_BACKEND } from "@env";
+
 export default function GardenScreen() {
   const [productList, setProductList] = useState([]);
 
@@ -31,7 +33,7 @@ export default function GardenScreen() {
     })();
   }, []);
 
-  console.log("liste", productList);
+  console.log("liste des produits", productList);
 
   const CardList = productList.map((product, i) => {
     return (
