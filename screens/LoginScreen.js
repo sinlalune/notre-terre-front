@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import Icon from "react-native-vector-icons/FontAwesome";
 
-import { useIsFocused } from "@react-navigation/native";
-
 import { API_BACKEND } from "@env";
 
 import {
@@ -11,65 +9,46 @@ import {
 	Text,
 	StyleSheet,
 	ImageBackground,
+	Dimensions,
+	TouchableOpacity,
+	Image,
+	Keyboard,
 	TextInput,
+	ScrollView,
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import { Button, Input } from "react-native-elements";
 
 // Import of Async Storage
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 //Connection to Redux
 import { connect } from "react-redux";
 
 function LoginScreen(props) {
-	const [signUpEmail, setSignUpEmail] = useState("");
-	const [signUpPassword, setSignUpPassword] = useState("");
-
-	console.log("Url du backend", process.env.API_BACKEND);
-
-	const [listErrorsSignUp, setListErrorsSignUp] = useState([]);
 	const [listErrorsSignIn, setListErrorsSignIn] = useState([]);
 
 	const [signInEmail, setSignInEmail] = useState("");
 	const [signInPassword, setSignInPassword] = useState("");
-
-	const isFocused = useIsFocused();
+	const [isLoading, setIsLoading] = useState(false);
+	const [isSignUpLoading, setIsSignUpLoading] = useState(false);
 
 	useEffect(() => {
 		AsyncStorage.getItem("user", (err, value) => {
 			if (value) {
 				console.log("🌄🌄🌄 JSON.parse(value)", JSON.parse(value));
-
 				props.saveUserData(JSON.parse(value));
 				props.navigation.navigate("BottomNavigator", { screen: "Research" });
 			}
 		});
 	}, []);
 
-	var handleSubmitSignUp = async () => {
-		console.log("🤖🤖🤖 SignUp infos: ", signUpEmail, signUpPassword);
-
-		const data = await fetch(`${API_BACKEND}/users/sign-up`, {
-			method: "POST",
-			headers: { "Content-Type": "application/x-www-form-urlencoded" },
-			body: `emailFromFront=${signUpEmail}&passwordFromFront=${signUpPassword}`,
-		});
-
-		const body = await data.json();
-		console.log(body);
-
-		if (body.result) {
-			AsyncStorage.setItem("user", JSON.stringify(body.searchUser));
-
-			props.saveUserData(body.searchUser);
-			props.navigation.navigate("BottomNavigator", { screen: "Research" });
-		} else {
-			setListErrorsSignUp(body.error);
-		}
-	};
-
 	var handleSubmitSignIn = async () => {
+		// fermeture du clavier
+		Keyboard.dismiss();
+		setIsLoading(true);
 		console.log("🤓🤓🤓 SignIn infos : ", signInEmail, signInPassword);
 
 		const data = await fetch(`${API_BACKEND}/users/sign-in`, {
@@ -79,7 +58,7 @@ function LoginScreen(props) {
 		});
 
 		const body = await data.json();
-
+		setIsLoading(false);
 		console.log("Enregistrement sign in : ", body);
 
 		if (body.result) {
@@ -92,109 +71,280 @@ function LoginScreen(props) {
 		}
 	};
 
-	var tabErrorsSignUp = listErrorsSignUp.map((error, i) => {
-		return <Text>{error}</Text>;
-	});
+	const handleRedirect = () => {
+		setIsSignUpLoading(true);
+		setTimeout(() => {
+			setIsSignUpLoading(false);
+			props.navigation.navigate("Register");
+		}, 800);
+	};
 
 	var tabErrorsSignIn = listErrorsSignIn.map((error, i) => {
 		return <Text>{error}</Text>;
 	});
 
 	return (
-		<View>
-			{/* <Loader loading={loading} /> */}
-
-			<ImageBackground source={require("../assets/home.jpg")}>
-				<Text>S'inscrire</Text>
-				<Input
-					placeholder="Votre email"
-					onChangeText={(val) => setSignUpEmail(val.toLowerCase())}
-				/>
-
-				{/* Sign-Up */}
-
-				<Input
-					placeholder="Votre mot de passe"
-					secureTextEntry={true}
-					onChangeText={(val) => setSignUpPassword(val)}
-				/>
-				{tabErrorsSignUp}
-				<Button
-					title="S'inscrire avec mon email"
-					onPress={() => {
-						handleSubmitSignUp();
-					}}
-				/>
-
-				{/* Sign-In */}
-
-				<Text>Se connecter</Text>
-				<Input
-					placeholder="Votre email"
-					onChangeText={(val) => setSignInEmail(val.toLowerCase())}
-				/>
-				<Input
-					placeholder="Votre mot de passe"
-					secureTextEntry={true}
-					onChangeText={(val) => setSignInPassword(val)}
-				/>
-				{tabErrorsSignIn}
-				<Button
-					title="Se connecter avec mon email"
-					type="solid"
-					onPress={() => {
-						handleSubmitSignIn();
-					}}
-				/>
-
+		<View style={styles.mainView}>
+			<KeyboardAwareScrollView
+				extraScrollHeight={30} // (when scroll) to have extra height between keyboard and text input
+				enableOnAndroid={true}
+				extraHeight={(windowHeight * 1) / 3} // make some height so the keyboard wont cover other component
+				contentContainerStyle={{ flexGrow: 1 }} // make the scrollView full screen
+			>
 				<View
 					style={{
-						flexDirection: "row",
+						flexDirection: "column",
+						justifyContent: "center",
 						alignItems: "center",
-						paddingLeft: 15,
-						paddingRight: 15,
+						height: (windowHeight * 1) / 3,
 					}}
 				>
-					<View style={{ flex: 1, height: 2, backgroundColor: "black" }} />
-					<View>
-						<Text style={{ width: 50, textAlign: "center" }}>OU</Text>
-					</View>
-					<View style={{ flex: 1, height: 2, backgroundColor: "black" }} />
+					<Text style={styles.logoText}>Notre Terre</Text>
+					<Text style={styles.tagLineText}>
+						Vous aussi, invitez les meilleurs aliments dans votre cuisine
+					</Text>
 				</View>
+				<ImageBackground
+					source={require("../assets/home.jpg")}
+					style={styles.inputsSection}
+				>
+					{/* Sign-In */}
+					<Text style={styles.connectTitle}>Se connecter</Text>
+					<View
+						style={{
+							height: (windowHeight * 1) / 3,
+							width: windowWidth * 0.9,
+							alignItems: "center",
+							justifyContent: "space-evenly",
+						}}
+					>
+						<TextInput
+							style={styles.formInput}
+							placeholder="Email"
+							onChangeText={(val) => setSignInEmail(val.toLowerCase())}
+							autoComplete="off"
+							autocorrect={false}
+							placeholderTextColor={"#0EA888"}
+						/>
+						<TextInput
+							style={styles.formInput}
+							placeholder="Mot de passe"
+							secureTextEntry={true}
+							autoComplete="off"
+							placeholderTextColor={"#0EA888"}
+							onChangeText={(val) => setSignInPassword(val)}
+						/>
+						{tabErrorsSignIn}
+						{isLoading ? (
+							<Button
+								buttonStyle={{
+									backgroundColor: "#0EA888",
+									width: windowWidth * 0.9,
+									borderRadius: 10,
+								}}
+								icon={
+									<Icon
+										name="check-circle-o"
+										size={25}
+										color="white"
+										style={{ marginRight: 4 }}
+									/>
+								}
+								title="Se connecter"
+								type="solid"
+								loading
+								onPress={() => {
+									handleSubmitSignIn();
+								}}
+							/>
+						) : (
+							<Button
+								buttonStyle={{
+									backgroundColor: "#0EA888",
+									width: windowWidth * 0.9,
+									borderRadius: 10,
+								}}
+								icon={
+									<Icon
+										name="check-circle-o"
+										size={25}
+										color="white"
+										style={{ marginRight: 4 }}
+									/>
+								}
+								title="Se connecter"
+								type="solid"
+								onPress={() => {
+									handleSubmitSignIn();
+								}}
+							/>
+						)}
+					</View>
 
-				{/* Connexion avec Facebook */}
-				<Button
-					title="Continuer avec Facebook"
-					onPress={() => {
-						props.navigation.navigate("BottomNavigator", {
-							screen: "Research",
-						});
-					}}
-				/>
-				{/* Connexion avec Google */}
-				<Button
-					title="Continuer avec Google"
-					onPress={() => {
-						props.navigation.navigate("BottomNavigator", {
-							screen: "Research",
-						});
-					}}
-				/>
-
-				<Button
-					title="Vous êtes nouveau ? Inscrivez-vous ici"
-					onPress={() => props.navigation.navigate("Register")}
-				></Button>
-			</ImageBackground>
+					{/* Connexion avec Facebook */}
+					<View
+						style={{
+							flexDirection: "row",
+							width: windowWidth * 0.9,
+							justifyContent: "space-between",
+						}}
+					>
+						<Button
+							buttonStyle={{
+								backgroundColor: "#2D9BEF",
+								width: windowWidth * 0.43,
+								borderRadius: 10,
+								justifyContent: "space-around",
+								height: 43,
+							}}
+							icon={
+								<Icon
+									name="facebook-square"
+									size={25}
+									color="white"
+									style={{ marginRight: 4 }}
+								/>
+							}
+							title="Facebook"
+						/>
+						{/* Connexion avec Google */}
+						<Button
+							buttonStyle={{
+								backgroundColor: "white",
+								width: windowWidth * 0.43,
+								borderWidth: 2,
+								borderColor: "#DADDE1",
+								justifyContent: "space-around",
+								borderRadius: 10,
+								height: 43,
+							}}
+							titleStyle={{ color: "grey" }}
+							icon={
+								<Image
+									source={{
+										uri: "https://res.cloudinary.com/matthieudev/image/upload/v1659644930/google_keoek6.png",
+									}}
+									style={{
+										width: 25,
+										height: 25,
+									}}
+								/>
+							}
+							title="Google"
+						/>
+					</View>
+					<View
+						style={{
+							flexDirection: "row",
+							alignItems: "center",
+							width: windowWidth * 0.7,
+						}}
+					>
+						<View
+							style={{
+								flex: 1,
+								height: 3,
+								backgroundColor: "#0EA888",
+								borderWidth: 1,
+								borderColor: "white",
+							}}
+						/>
+					</View>
+					{isSignUpLoading ? (
+						<Button
+							loading
+							buttonStyle={{
+								backgroundColor: "white",
+								width: windowWidth * 0.9,
+								borderRadius: 10,
+								borderWidth: 2,
+							}}
+							title="Vous êtes nouveau ? Inscrivez-vous ici"
+							type="outline"
+							onPress={() => {
+								handleSubmitSignIn();
+							}}
+						/>
+					) : (
+						<Button
+							buttonStyle={{
+								backgroundColor: "white",
+								width: windowWidth * 0.9,
+								borderRadius: 10,
+								borderWidth: 2,
+							}}
+							title="Vous êtes nouveau ? Inscrivez-vous ici"
+							type="outline"
+							onPress={() => handleRedirect()}
+						/>
+					)}
+				</ImageBackground>
+			</KeyboardAwareScrollView>
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
-	mainBody: {
+	connectTitle: {
+		color: "#0EA888",
+		fontWeight: "bold",
+		fontSize: 22,
+		backgroundColor: "white",
+		padding: windowHeight * 0.01,
+		borderRadius: 10,
+		marginBottom: -15,
+	},
+	mainView: {
 		flex: 1,
-		justifyContent: "center",
-		backgroundColor: "#0CA789",
+		backgroundColor: "#0EA888",
+		flexDirection: "column",
+		justifyContent: "space-between",
+	},
+	logoText: {
+		fontWeight: "bold",
+		color: "white",
+		fontSize: 35,
+		fontFamily: "notoserif",
+	},
+	tagLineText: {
+		color: "white",
+		fontSize: 12,
+		textAlign: "center",
+		marginTop: 5,
+		fontStyle: "italic",
+	},
+	inputsSection: {
+		height: (windowHeight * 2) / 3 + 30,
+		paddingTop: windowHeight * 0.014,
+		flexDirection: "column",
+		alignItems: "center",
+		justifyContent: "space-around",
+	},
+	signupLink: {
+		color: "#0EA888",
+		fontWeight: "bold",
+		fontSize: 14,
+		backgroundColor: "white",
+		padding: windowHeight * 0.01,
+		borderRadius: 10,
+	},
+	formInput: {
+		backgroundColor: "white",
+		borderRadius: 10,
+		borderWidth: 2,
+		borderColor: "#969696",
+		width: "100%",
+		height: 45,
+		padding: 10,
+		fontWeight: "bold",
+		fontSize: 16,
+		color: "#0EA888",
+	},
+	inputName: {
+		color: "#0EA888",
+		borderColor: "#DADDE1",
+		fontWeight: "bold",
+		fontSize: 19,
 	},
 });
 

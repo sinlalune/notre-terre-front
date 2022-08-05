@@ -1,5 +1,5 @@
 import { Camera } from "expo-camera";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TextInput, Icon } from "react-native";
 import { Button } from "react-native-elements";
 
 import { connect } from "react-redux";
@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function ProfileScreen(props) {
-	var handleLogout = () => {
+	var handleLogOut = () => {
 		AsyncStorage.clear();
 
 		props.clearUserData();
@@ -22,16 +22,18 @@ function ProfileScreen(props) {
 					uri: "https://res.cloudinary.com/matthieudev/image/upload/v1659625192/generic-avatar_mpp1wf.png",
 				}}
 				style={{
-					width: 80,
-					height: 80,
-					marginRight: "5%",
+					width: 100,
+					height: 100,
 					alignContent: "center",
 					alignItems: "center",
-					marginTop: 200,
+					marginTop: 80,
 					alignSelf: "center",
-					borderWidth: 1,
 					borderRadius: 50,
 				}}
+			/>
+			<TextInput
+				placeholder="INPUT WITH CUSTOM ICON"
+				// leftIcon={<Icon name="user" size={24} color="black" />}
 			/>
 			<Button
 				title="Logout"
@@ -39,7 +41,7 @@ function ProfileScreen(props) {
 					marginTop: 150,
 				}}
 				onPress={() => {
-					handleLogout();
+					handleLogOut();
 				}}
 			></Button>
 		</View>
