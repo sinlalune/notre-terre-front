@@ -15,7 +15,6 @@ import {
   ScrollView,
 } from "react-native";
 import { Shadow } from "react-native-shadow-2";
-import { API_BACKEND } from "@env";
 
 import { API_BACKEND } from "@env";
 

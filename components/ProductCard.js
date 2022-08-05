@@ -1,12 +1,12 @@
 import React from "react";
 import * as Font from "expo-font";
 import {
-	StyleSheet,
-	View,
-	Text,
-	Image,
-	ScrollView,
-	TextInput,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TextInput,
 } from "react-native";
 import { Shadow } from "react-native-shadow-2";
 const ProductName = require("./ProductName");
@@ -23,7 +23,6 @@ import { API_BACKEND } from "@env";
 import { Icon } from "@rneui/themed";
 
 const ProductCard = (product, i) => {
-<<<<<<< HEAD
   return (
     <View
       key={i}
@@ -80,72 +79,6 @@ const ProductCard = (product, i) => {
       </Shadow>
     </View>
   );
-=======
-	async function handleClickAddProduct() {
-		await fetch(`${API_BACKEND}/card/productList`);
-	}
-
-	return (
-		<View
-			key={i}
-			style={{
-				flexDirection: "row",
-				padding: 5,
-			}}
-		>
-			<Shadow distance={3} key={i}>
-				<View
-					key={i}
-					style={{
-						padding: 10,
-						margin: 1,
-						width: 165,
-						height: 165,
-						backgroundColor: "white",
-						borderRadius: 5,
-					}}
-				>
-					<View
-						style={{
-							flexDirection: "row",
-							justifyContent: "space-between",
-							marginBottom: 10,
-						}}
-					>
-						<ProductIcon />
-						<AddIcon
-							onPress={() => {
-								handleClickAddProduct(props.product_id);
-							}}
-						/>
-						<LikeIcon />
-					</View>
-					<View
-						style={{ flexDirection: "row", justifyContent: "space-between" }}
-					>
-						<View style={{ alignSelf: "flex-start" }}>
-							<ProductName
-								name={product.name}
-								species={product.species}
-								label={product.label}
-							/>
-						</View>
-						<View style={{ alignSelf: "flex-end" }}>
-							<ProductQuantity kilo_price={product.kilo_price} />
-							<ProductAvaibility date_harvest={product.date_harvest} />
-						</View>
-					</View>
-					<View>
-						<DomainInfo
-							domain_name={product.domain_name}
-							product_id={product.product_id}
-						/>
-					</View>
-				</View>
-			</Shadow>
-		</View>
-	);
->>>>>>> 71a85226fdf248076207d109f71e43be6f6ea3f5
 };
 
 module.exports = ProductCard;
