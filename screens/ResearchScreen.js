@@ -1,6 +1,6 @@
 //Import of React
 import React, { useState, useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 
 import { API_BACKEND } from "@env";
 
@@ -9,9 +9,6 @@ import MapView, { Marker } from "react-native-maps";
 
 // Import Input
 import { Input, Button } from "react-native-elements";
-
-// Import of ScrollView
-import { ScrollView } from "react-native";
 
 //Import of components for Location and Permissions
 import * as Location from "expo-location";
@@ -64,30 +61,49 @@ export default function ResearchScreen() {
 				name={product.name}
 				species={product.species_name}
 				label={product.label}
-				price={product.kilo_price}
-				domain={product.domain_adress}
+				kilo_price={product.kilo_price}
+				date_harvest={product.date_harvest}
+				producer={product.producer}
+				domain_name={product.domain_name}
+				domain_adress={product.domain_adress}
+				product_id={product._id}
 			/>
 		);
 	});
 
 	console.log("cardlist", CardList);
 
-	const [listPOI, setListPoi] = useState([]);
+	const [locAgri, setLocAgri] = useState([]);
 
-	var markerPOI = listPOI.map((POI, i) => {
+	var markerPOI = productList.map((product, i) => {
 		return (
 			<Marker
 				key={i}
-				pinColor="blue"
-				coordinate={{ latitude: POI.latitude, longitude: POI.longitude }}
-				title={POI.titre}
-				description={POI.description}
+				pinColor="#0EA888"
+				coordinate={{
+					latitude: product.domain_adress[0].lat,
+					longitude: product.domain_adress[0].lon,
+				}}
+				title={product.name}
+				description={product.domain_name}
 			/>
 		);
 	});
 
 	return (
 		<>
+			<View
+				style={{
+					flexDirection: "column",
+					justifyContent: "center",
+					alignItems: "center",
+				}}
+			>
+				<Text style={styles.logoText}>Ma Recherche</Text>
+				<Text style={styles.tagLineText}>
+					Vous aussi, invitez les meilleurs aliments dans votre cuisine
+				</Text>
+			</View>
 			<Input
 				containerStyle={{ marginBottom: 10, width: "70%" }}
 				inputStyle={{ marginLeft: 10 }}
@@ -113,7 +129,48 @@ export default function ResearchScreen() {
 				/>
 				{markerPOI}
 			</MapView>
-			<ScrollView style={{ marginTop: 10, flex: 3 }}>{CardList}</ScrollView>
+			<ScrollView style={{ marginTop: 10, flex: 3 }}>
+				<View
+					style={{
+						flex: 1,
+						flexWrap: "wrap",
+						backgroundColor: "white",
+						justifyContent: "center",
+						alignItems: "center",
+					}}
+				>
+					<View>
+						<View
+							style={{
+								flexDirection: "row",
+								flexWrap: "wrap",
+								width: "100%",
+							}}
+						>
+							{CardList}
+						</View>
+					</View>
+				</View>
+			</ScrollView>
 		</>
 	);
 }
+
+const styles = StyleSheet.create({
+	logoText: {
+		fontWeight: "bold",
+		color: "white",
+		fontSize: 35,
+		fontFamily: "notoserif",
+		backgroundColor: "#0EA888",
+	},
+	tagLineText: {
+		color: "white",
+		fontSize: 12,
+		textAlign: "center",
+		marginTop: 5,
+		fontStyle: "italic",
+		backgroundColor: "#0EA888",
+		marginBottom: 10,
+	},
+});

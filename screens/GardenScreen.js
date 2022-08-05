@@ -24,7 +24,7 @@ export default function GardenScreen() {
 		})();
 	}, []);
 
-	console.log("liste", productList);
+	console.log("liste des produits", productList);
 
 	const CardList = productList.map((product, i) => {
 		return (
