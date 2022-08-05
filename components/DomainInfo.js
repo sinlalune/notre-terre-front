@@ -40,8 +40,7 @@ const DomainInfo = (product) => {
     (async () => {
       console.log("producer adrress started");
       const loadProductInfo = await fetch(
-        `https://${REACT_APP_API_BACKEND}/card/product?product_id=` +
-          product.product_id
+        `${API_BACKEND}/card/product?product_id=` + product.product_id
       );
       const response = await loadProductInfo.json();
       console.log("response product adress : ", response.product.domain_adress);
@@ -71,7 +70,7 @@ const DomainInfo = (product) => {
       <View>
         <Image style={styles.icon} source={require("../assets/pin.png")} />
       </View>
-      <View style={{ marginTop: 5 }}>
+      <View style={{ marginTop: 5, marginRight: 10 }}>
         <Text style={{ fontSize: 8, fontWeight: "300", color: "#4f4e4d" }}>
           Domaine
         </Text>

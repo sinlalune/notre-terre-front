@@ -11,7 +11,7 @@ import {
 
 import { Icon } from "@rneui/themed";
 
-const ProductQuantity = (product) => {
+const ProductPriceQuantity = (product) => {
   return (
     <View
       style={{
@@ -43,4 +43,4 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
 });
-module.exports = ProductQuantity;
+module.exports = ProductPriceQuantity;

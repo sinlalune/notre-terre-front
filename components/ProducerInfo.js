@@ -18,8 +18,7 @@ const ProducerInfo = (product) => {
     (async () => {
       console.log("producer started started");
       const loadProducerInfo = await fetch(
-        `https://${REACT_APP_API_BACKEND}/card/producer?producer_id=` +
-          product.producer
+        `${API_BACKEND}/card/producer?producer_id=` + product.producer
       );
       const response = await loadProducerInfo.json();
       console.log("response producer info : ", response);

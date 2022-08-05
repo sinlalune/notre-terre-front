@@ -20,7 +20,7 @@ const AddIcon = require("../components/AddIcon");
 
 import { Icon } from "@rneui/themed";
 
-const ProductCard = (product, i) => {
+const OrderCardMini = (product, i) => {
   return (
     <View
       key={i}
@@ -35,43 +35,26 @@ const ProductCard = (product, i) => {
           style={{
             padding: 10,
             margin: 1,
-            width: 165,
-            height: 165,
+            width: 105,
+            height: 105,
             backgroundColor: "white",
             borderRadius: 5,
           }}
         >
           <View
             style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
+              justifyContent: "center",
+              alignItems: "center",
               marginBottom: 10,
+              marginTop: 5,
             }}
           >
             <ProductIcon />
-            <AddIcon />
-            <LikeIcon />
           </View>
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <View style={{ alignSelf: "flex-start" }}>
-              <ProductName
-                name={product.name}
-                species={product.species}
-                label={product.label}
-              />
-            </View>
-            <View style={{ alignSelf: "flex-end" }}>
-              <ProductPriceQuantity kilo_price={product.kilo_price} />
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <View style={{ alignSelf: "center" }}>
               <ProductAvaibility date_harvest={product.date_harvest} />
             </View>
-          </View>
-          <View>
-            <DomainInfo
-              domain_name={product.domain_name}
-              product_id={product.product_id}
-            />
           </View>
         </View>
       </Shadow>
@@ -79,4 +62,4 @@ const ProductCard = (product, i) => {
   );
 };
 
-module.exports = ProductCard;
+module.exports = OrderCardMini;
