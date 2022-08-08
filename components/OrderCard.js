@@ -18,11 +18,9 @@ const ProductIcon = require("../components/productIcon");
 const LikeIcon = require("../components/LikeIcon");
 const AddIcon = require("../components/AddIcon");
 
-import { API_BACKEND } from "@env";
-
 import { Icon } from "@rneui/themed";
 
-const ProductCard = (product, i) => {
+const OrderCard = (product, i) => {
   return (
     <View
       key={i}
@@ -35,29 +33,19 @@ const ProductCard = (product, i) => {
         <View
           key={i}
           style={{
-            padding: 10,
+            padding: 20,
             margin: 1,
-            width: 165,
-            height: 165,
+            width: 340,
+            height: 200,
             backgroundColor: "white",
             borderRadius: 5,
           }}
         >
           <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginBottom: 10,
-            }}
-          >
-            <ProductIcon />
-            <AddIcon />
-            <LikeIcon />
-          </View>
-          <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <View style={{ alignSelf: "flex-start" }}>
+            <View style={{ alignSelf: "flex-start", flexDirection: "row" }}>
+              <ProductIcon />
               <ProductName
                 name={product.name}
                 species={product.species}
@@ -69,11 +57,26 @@ const ProductCard = (product, i) => {
               <ProductAvaibility date_harvest={product.date_harvest} />
             </View>
           </View>
-          <View>
-            <DomainInfo
-              domain_name={product.domain_name}
-              product_id={product.product_id}
-            />
+          <View
+            style={{
+              padding: 20,
+              margin: 1,
+              width: 340,
+              height: 30,
+            }}
+          ></View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <View style={{ alignSelf: "flex-start" }}>
+              <ProducerInfo producer={product.producer} />
+            </View>
+            <View style={{ alignSelf: "flex-end" }}>
+              <DomainInfo
+                domain_name={product.domain_name}
+                product_id={product.product_id}
+              />
+            </View>
           </View>
         </View>
       </Shadow>
@@ -81,4 +84,4 @@ const ProductCard = (product, i) => {
   );
 };
 
-module.exports = ProductCard;
+module.exports = OrderCard;
