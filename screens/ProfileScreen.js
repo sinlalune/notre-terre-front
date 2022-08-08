@@ -254,15 +254,11 @@ function ProfileScreen(props) {
 									justifyContent: "space-around",
 								}}
 							>
-								<Button
-									buttonStyle={styles.cardButton}
-									icon={
-										<Image
-											source={require("../assets/tomato.png")}
-											style={{ width: 50, height: 50 }}
-										/>
-									}
+								<Image
+									source={require("../assets/tomato.png")}
+									style={{ width: 50, height: 50 }}
 								/>
+
 								<Button
 									buttonStyle={styles.cardButton}
 									icon={

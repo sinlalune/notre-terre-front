@@ -48,11 +48,11 @@ export default function BasketScreen() {
 					marginBottom: 70,
 				}}
 			>
-				<DataTable.Header>
+				<DataTable.Header style={{ textAlign: "space-between" }}>
 					<DataTable.Title>Type</DataTable.Title>
 					<DataTable.Title>Produit</DataTable.Title>
 					<DataTable.Title>Prix Unitaire</DataTable.Title>
-					<DataTable.Title numeric>Quantité</DataTable.Title>
+					<DataTable.Title numeric>Qantité</DataTable.Title>
 					<DataTable.Title numeric>Prix</DataTable.Title>
 				</DataTable.Header>
 

@@ -17,6 +17,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { Button, Input } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { connect } from "react-redux";
+import { API_BACKEND } from "@env";
 
 const largeur = Dimensions.get("window").width;
 const hauteur = Dimensions.get("window").height;
