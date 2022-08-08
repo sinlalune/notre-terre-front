@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-
 import Icon from "react-native-vector-icons/FontAwesome";
-
-import { API_BACKEND } from "@env";
-
+import { REACT_APP_API_BACKEND } from "@env";
 import {
 	View,
 	Text,
@@ -17,15 +14,12 @@ import {
 	ScrollView,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-
 import { Button, Input } from "react-native-elements";
-
-// Import of Async Storage
 import AsyncStorage from "@react-native-async-storage/async-storage";
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-//Connection to Redux
 import { connect } from "react-redux";
+
+const largeur = Dimensions.get("window").width;
+const hauteur = Dimensions.get("window").height;
 
 function LoginScreen(props) {
 	const [listErrorsSignIn, setListErrorsSignIn] = useState([]);
@@ -33,7 +27,7 @@ function LoginScreen(props) {
 	const [signInEmail, setSignInEmail] = useState("");
 	const [signInPassword, setSignInPassword] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
-	const [isSignUpLoading, setIsSignUpLoading] = useState(false);
+	const [isSignupLoading, setIsSignupLoading] = useState(false);
 
 	useEffect(() => {
 		AsyncStorage.getItem("user", (err, value) => {
@@ -44,14 +38,19 @@ function LoginScreen(props) {
 			}
 		});
 	}, []);
+	console.log(
+		"➡️ Mise en place du AsyncStorage :",
+		AsyncStorage.getItem("user"),
+	);
 
 	var handleSubmitSignIn = async () => {
-		// fermeture du clavier
+		console.log("➡️ API du backend", REACT_APP_API_BACKEND);
+		// Fermeture du clavier
 		Keyboard.dismiss();
 		setIsLoading(true);
 		console.log("🤓🤓🤓 SignIn infos : ", signInEmail, signInPassword);
 
-		const data = await fetch(`${API_BACKEND}/users/sign-in`, {
+		const data = await fetch(`http://${REACT_APP_API_BACKEND}/users/sign-in`, {
 			method: "POST",
 			headers: { "Content-Type": "application/x-www-form-urlencoded" },
 			body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`,
@@ -59,7 +58,7 @@ function LoginScreen(props) {
 
 		const body = await data.json();
 		setIsLoading(false);
-		console.log("Enregistrement sign in : ", body);
+		console.log("✅ Enregistrement sign in : ", body);
 
 		if (body.result) {
 			props.saveUserData(body.searchUser.token);
@@ -72,10 +71,11 @@ function LoginScreen(props) {
 	};
 
 	const handleRedirect = () => {
-		setIsSignUpLoading(true);
+		setIsSignupLoading(true);
 		setTimeout(() => {
-			setIsSignUpLoading(false);
+			setIsSignupLoading(false);
 			props.navigation.navigate("Register");
+			// props.navigation.navigate("BottomNavigator", { screen: "Profile" });
 		}, 800);
 	};
 
@@ -88,196 +88,234 @@ function LoginScreen(props) {
 			<KeyboardAwareScrollView
 				extraScrollHeight={30} // (when scroll) to have extra height between keyboard and text input
 				enableOnAndroid={true}
-				extraHeight={(windowHeight * 1) / 3} // make some height so the keyboard wont cover other component
+				extraHeight={(hauteur * 1) / 3} // make some height so the keyboard wont cover other component
 				contentContainerStyle={{ flexGrow: 1 }} // make the scrollView full screen
 			>
-				<View
-					style={{
-						flexDirection: "column",
-						justifyContent: "center",
-						alignItems: "center",
-						height: (windowHeight * 1) / 3,
-					}}
-				>
+				<View style={styles.header}>
+					<Image
+						source={require("../assets/logonotreterre.png")}
+						style={{
+							height: 150,
+							resizeMode: "contain",
+						}}
+					/>
 					<Text style={styles.logoText}>Notre Terre</Text>
 					<Text style={styles.tagLineText}>
 						Vous aussi, invitez les meilleurs aliments dans votre cuisine
 					</Text>
 				</View>
+
 				<ImageBackground
-					source={require("../assets/home.jpg")}
-					style={styles.inputsSection}
+					source={require("../assets/loginbackground.jpg")}
+					style={styles.background}
 				>
 					{/* Sign-In */}
-					<Text style={styles.connectTitle}>Se connecter</Text>
-					<View
-						style={{
-							height: (windowHeight * 1) / 3,
-							width: windowWidth * 0.9,
-							alignItems: "center",
-							justifyContent: "space-evenly",
-						}}
-					>
-						<TextInput
-							style={styles.formInput}
-							placeholder="Email"
-							onChangeText={(val) => setSignInEmail(val.toLowerCase())}
-							autoComplete="off"
-							autocorrect={false}
-							placeholderTextColor={"#0EA888"}
-						/>
-						<TextInput
-							style={styles.formInput}
-							placeholder="Mot de passe"
-							secureTextEntry={true}
-							autoComplete="off"
-							placeholderTextColor={"#0EA888"}
-							onChangeText={(val) => setSignInPassword(val)}
-						/>
-						{tabErrorsSignIn}
-						{isLoading ? (
-							<Button
-								buttonStyle={{
-									backgroundColor: "#0EA888",
-									width: windowWidth * 0.9,
-									borderRadius: 10,
-								}}
-								icon={
-									<Icon
-										name="check-circle-o"
-										size={25}
-										color="white"
-										style={{ marginRight: 4 }}
-									/>
-								}
-								title="Se connecter"
-								type="solid"
-								loading
-								onPress={() => {
-									handleSubmitSignIn();
-								}}
-							/>
-						) : (
-							<Button
-								buttonStyle={{
-									backgroundColor: "#0EA888",
-									width: windowWidth * 0.9,
-									borderRadius: 10,
-								}}
-								icon={
-									<Icon
-										name="check-circle-o"
-										size={25}
-										color="white"
-										style={{ marginRight: 4 }}
-									/>
-								}
-								title="Se connecter"
-								type="solid"
-								onPress={() => {
-									handleSubmitSignIn();
-								}}
-							/>
-						)}
-					</View>
 
-					{/* Connexion avec Facebook */}
-					<View
-						style={{
-							flexDirection: "row",
-							width: windowWidth * 0.9,
-							justifyContent: "space-between",
-						}}
-					>
-						<Button
-							buttonStyle={{
-								backgroundColor: "#2D9BEF",
-								width: windowWidth * 0.43,
-								borderRadius: 10,
-								justifyContent: "space-around",
-								height: 43,
-							}}
-							icon={
-								<Icon
-									name="facebook-square"
-									size={25}
-									color="white"
-									style={{ marginRight: 4 }}
+					<ScrollView>
+						<View style={styles.containerGeneral}>
+							<Text style={styles.titleCategory}>Se connecter</Text>
+
+							<View>
+								<TextInput
+									style={styles.formInput}
+									placeholder="Email"
+									onChangeText={(val) => setSignInEmail(val.toLowerCase())}
 								/>
-							}
-							title="Facebook"
-						/>
-						{/* Connexion avec Google */}
-						<Button
-							buttonStyle={{
-								backgroundColor: "white",
-								width: windowWidth * 0.43,
-								borderWidth: 2,
-								borderColor: "#DADDE1",
-								justifyContent: "space-around",
-								borderRadius: 10,
-								height: 43,
-							}}
-							titleStyle={{ color: "grey" }}
-							icon={
-								<Image
-									source={{
-										uri: "https://res.cloudinary.com/matthieudev/image/upload/v1659644930/google_keoek6.png",
-									}}
+								<TextInput
+									style={styles.formInput}
+									placeholder="Mot de passe"
+									secureTextEntry={true}
+									onChangeText={(val) => setSignInPassword(val)}
+								/>
+								<TouchableOpacity>
+									<Text
+										style={{
+											color: "#0EA888",
+											fontWeight: "bold",
+											fontSize: 16,
+											marginBottom: largeur * 0.01,
+											marginLeft: largeur * 0.6,
+										}}
+									>
+										Mot de passe oublié ?
+									</Text>
+								</TouchableOpacity>
+
+								<View
 									style={{
-										width: 25,
-										height: 25,
+										alignItems: "center",
+										marginBottom: hauteur * 0.02,
+									}}
+								>
+									{tabErrorsSignIn}
+								</View>
+							</View>
+
+							<View>
+								{isLoading ? (
+									<Button
+										buttonStyle={styles.submitButton}
+										icon={
+											<Icon
+												name="check-circle-o"
+												size={25}
+												color="white"
+												style={{ marginRight: 15 }}
+											/>
+										}
+										title="Se connecter"
+										type="solid"
+										loading
+										onPress={() => {
+											handleSubmitSignIn();
+										}}
+									/>
+								) : (
+									<Button
+										buttonStyle={styles.submitButton}
+										icon={
+											<Icon
+												name="check-circle-o"
+												size={25}
+												color="white"
+												style={{ marginRight: 15 }}
+											/>
+										}
+										title="Se connecter"
+										type="solid"
+										onPress={() => {
+											handleSubmitSignIn();
+										}}
+									/>
+								)}
+							</View>
+
+							{/* Connexion avec Facebook */}
+							<View
+								style={{
+									flexDirection: "row",
+									width: largeur * 0.9,
+									justifyContent: "space-between",
+									marginTop: hauteur * 0.05,
+								}}
+							>
+								<Button
+									buttonStyle={{
+										backgroundColor: "#2D9BEF",
+										width: largeur * 0.43,
+										borderRadius: 10,
+										justifyContent: "space-around",
+										height: 43,
+									}}
+									icon={
+										<Icon
+											name="facebook-square"
+											size={25}
+											color="white"
+											style={{ marginRight: 4 }}
+										/>
+									}
+									title="Login avec Facebook"
+								/>
+								{/* Connexion avec Google */}
+								<Button
+									buttonStyle={{
+										backgroundColor: "white",
+										width: largeur * 0.43,
+										borderWidth: 2,
+										borderColor: "#b8b6b6",
+										justifyContent: "space-around",
+										borderRadius: 10,
+										height: 43,
+									}}
+									titleStyle={{ color: "grey" }}
+									icon={
+										<Image
+											source={{
+												uri: "https://cdn.icon-icons.com/icons2/2631/PNG/512/google_search_new_logo_icon_159150.png",
+											}}
+											style={{
+												width: 25,
+												height: 25,
+												marginRight: 20,
+											}}
+										/>
+									}
+									title="Login avec Google"
+								/>
+							</View>
+
+							<View
+								style={{
+									flexDirection: "row",
+									alignItems: "center",
+									marginTop: hauteur * 0.08,
+									marginBottom: hauteur * 0.08,
+								}}
+							>
+								<View
+									style={{
+										flex: 1,
+										height: 3,
+										marginLeft: largeur * 0.05,
+										backgroundColor: "#0EA888",
 									}}
 								/>
-							}
-							title="Google"
-						/>
-					</View>
-					<View
-						style={{
-							flexDirection: "row",
-							alignItems: "center",
-							width: windowWidth * 0.7,
-						}}
-					>
-						<View
-							style={{
-								flex: 1,
-								height: 3,
-								backgroundColor: "#0EA888",
-								borderWidth: 1,
-								borderColor: "white",
-							}}
-						/>
-					</View>
-					{isSignUpLoading ? (
-						<Button
-							loading
-							buttonStyle={{
-								backgroundColor: "white",
-								width: windowWidth * 0.9,
-								borderRadius: 10,
-								borderWidth: 2,
-							}}
-							title="Vous êtes nouveau ? Inscrivez-vous ici"
-							type="outline"
-							onPress={() => {
-								handleSubmitSignIn();
-							}}
-						/>
-					) : (
-						<Button
-							buttonStyle={{
-								backgroundColor: "white",
-								width: windowWidth * 0.9,
-								borderRadius: 10,
-								borderWidth: 2,
-							}}
-							title="Vous êtes nouveau ? Inscrivez-vous ici"
-							type="outline"
-							onPress={() => handleRedirect()}
-						/>
-					)}
+								<View>
+									<Text style={{ width: 50, textAlign: "center" }}>OU</Text>
+								</View>
+								<View
+									style={{
+										flex: 1,
+										height: 3,
+										marginRight: largeur * 0.05,
+										backgroundColor: "#0EA888",
+									}}
+								/>
+							</View>
+
+							{isSignupLoading ? (
+								<Button
+									loading
+									buttonStyle={{
+										backgroundColor: "white",
+										borderRadius: 10,
+										borderWidth: 2,
+										width: largeur * 0.9,
+										borderColor: "#2D9BEF",
+									}}
+									title="Vous êtes nouveau ? Inscrivez-vous ici"
+									type="outline"
+									titleStyle={{
+										color: "#2D9BEF",
+										fontWeight: "bold",
+										fontSize: 16,
+									}}
+									onPress={() => {
+										handleSubmitSignIn();
+									}}
+								/>
+							) : (
+								<Button
+									buttonStyle={{
+										backgroundColor: "white",
+										borderRadius: 10,
+										borderWidth: 2,
+										width: largeur * 0.9,
+										borderColor: "#2D9BEF",
+									}}
+									title="Vous êtes nouveau ? Inscrivez-vous ici"
+									type="outline"
+									titleStyle={{
+										color: "#2D9BEF",
+										fontWeight: "bold",
+										fontSize: 16,
+									}}
+									onPress={() => handleRedirect()}
+								/>
+							)}
+						</View>
+					</ScrollView>
 				</ImageBackground>
 			</KeyboardAwareScrollView>
 		</View>
@@ -285,20 +323,15 @@ function LoginScreen(props) {
 }
 
 const styles = StyleSheet.create({
-	connectTitle: {
-		color: "#0EA888",
-		fontWeight: "bold",
-		fontSize: 22,
-		backgroundColor: "white",
-		padding: windowHeight * 0.01,
-		borderRadius: 10,
-		marginBottom: -15,
-	},
 	mainView: {
 		flex: 1,
+	},
+	header: {
 		backgroundColor: "#0EA888",
 		flexDirection: "column",
-		justifyContent: "space-between",
+		justifyContent: "center",
+		alignItems: "center",
+		height: (hauteur * 1) / 3,
 	},
 	logoText: {
 		fontWeight: "bold",
@@ -310,41 +343,50 @@ const styles = StyleSheet.create({
 		color: "white",
 		fontSize: 12,
 		textAlign: "center",
-		marginTop: 5,
 		fontStyle: "italic",
 	},
-	inputsSection: {
-		height: (windowHeight * 2) / 3 + 30,
-		paddingTop: windowHeight * 0.014,
+	background: {
+		flex: 1,
+	},
+	containerGeneral: {
 		flexDirection: "column",
 		alignItems: "center",
 		justifyContent: "space-around",
 	},
-	signupLink: {
-		color: "#0EA888",
+	titleCategory: {
+		justifyContent: "center",
+		alignItems: "center",
+		color: "white",
+		backgroundColor: "#0EA888",
 		fontWeight: "bold",
-		fontSize: 14,
-		backgroundColor: "white",
-		padding: windowHeight * 0.01,
+		fontSize: 22,
+		height: 40,
+		width: largeur * 0.7,
 		borderRadius: 10,
+		marginTop: hauteur * 0.01,
+		marginBottom: hauteur * 0.02,
+		textAlign: "center",
+		textAlignVertical: "center",
 	},
 	formInput: {
 		backgroundColor: "white",
 		borderRadius: 10,
 		borderWidth: 2,
-		borderColor: "#969696",
+		borderColor: "#b8b6b6",
 		width: "100%",
 		height: 45,
 		padding: 10,
 		fontWeight: "bold",
 		fontSize: 16,
+		width: largeur * 0.9,
+		marginBottom: hauteur * 0.01,
+		marginTop: hauteur * 0.01,
 		color: "#0EA888",
 	},
-	inputName: {
-		color: "#0EA888",
-		borderColor: "#DADDE1",
-		fontWeight: "bold",
-		fontSize: 19,
+	submitButton: {
+		backgroundColor: "#2D9BEF",
+		width: largeur * 0.9,
+		borderRadius: 10,
 	},
 });
 

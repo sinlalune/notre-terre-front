@@ -31,6 +31,8 @@ import RegisterScreen from "./screens/RegisterScreen";
 import BasketScreen from "./screens/BasketScreen";
 import GardenScreen from "./screens/GardenScreen";
 import ResearchScreen from "./screens/ResearchScreen";
+import ValidateScreen from "./screens/ValidateScreen";
+import SplashScreen from "./screens/SplashScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -67,8 +69,8 @@ const BottomNavigator = () => {
 				},
 			}}
 		>
-			<Tab.Screen name="Garden" component={GardenScreen} />
 			<Tab.Screen name="Research" component={ResearchScreen} />
+			<Tab.Screen name="Garden" component={GardenScreen} />
 			<Tab.Screen name="Basket" component={BasketScreen} />
 			<Tab.Screen name="Profile" component={ProfileScreen} />
 		</Tab.Navigator>
@@ -80,10 +82,12 @@ export default function App() {
 		<Provider store={store}>
 			<NavigationContainer>
 				<Stack.Navigator screenOptions={{ headerShown: false }}>
+					<Stack.Screen name="SplashScreen" component={SplashScreen} />
 					<Stack.Screen name="Login" component={LoginScreen} />
+					<Stack.Screen name="Register" component={RegisterScreen} />
+					<Stack.Screen name="Validate" component={ValidateScreen} />
 					<Stack.Screen name="Producer" component={ProducerScreen} />
 					<Stack.Screen name="BottomNavigator" component={BottomNavigator} />
-					<Stack.Screen name="Register" component={RegisterScreen} />
 				</Stack.Navigator>
 			</NavigationContainer>
 		</Provider>
