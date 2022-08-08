@@ -182,7 +182,7 @@ export default function GardenScreen() {
 					</View>
 				</View>
 
-				<ScrollView style={{ backgroundColor: "white", paddingBottom: 600 }}>
+				<ScrollView style={{ backgroundColor: "white", paddingBottom: 300 }}>
 					<View
 						style={{
 							flex: 1,

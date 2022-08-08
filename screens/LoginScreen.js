@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { API_BACKEND } from "@env";
 import {
 	View,
 	Text,
