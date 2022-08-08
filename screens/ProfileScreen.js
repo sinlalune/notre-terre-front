@@ -179,7 +179,7 @@ function ProfileScreen(props) {
 									placeholder="Prénom"
 									onChangeText={(val) =>
 										setSignUpFirstName(
-											val[0].toUpperCase() + val.slice(1).toLowerCase(),
+											val[0].toUpperCase() + val.slice(1).toLowerCase()
 										)
 									}
 								/>
@@ -339,7 +339,7 @@ function ProfileScreen(props) {
 												},
 											},
 										],
-										{ cancelable: false },
+										{ cancelable: false }
 									);
 								}}
 							></Button>
