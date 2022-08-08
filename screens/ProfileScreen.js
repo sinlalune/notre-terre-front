@@ -37,8 +37,6 @@ function ProfileScreen(props) {
 		// props.clearUserData();
 	};
 
-	console.log("➡️ Remise à 0 du AsyncStorage : ", AsyncStorage.clear());
-
 	var handleSubmitSignUp = async (props) => {
 		console.log("🤖🤖🤖 SignUp infos: ", signUpEmail, signUpPassword);
 

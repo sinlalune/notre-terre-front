@@ -38,10 +38,6 @@ function LoginScreen(props) {
 			}
 		});
 	}, []);
-	console.log(
-		"➡️ Mise en place du AsyncStorage :",
-		AsyncStorage.getItem("user"),
-	);
 
 	var handleSubmitSignIn = async () => {
 		console.log("➡️ API du backend", REACT_APP_API_BACKEND);
@@ -61,7 +57,7 @@ function LoginScreen(props) {
 		console.log("✅ Enregistrement sign in : ", body);
 
 		if (body.result) {
-			props.saveUserData(body.searchUser.token);
+			props.saveUserData(body.searchUser);
 			AsyncStorage.setItem("user", JSON.stringify(body.searchUser));
 
 			props.navigation.navigate("BottomNavigator", { screen: "Research" });

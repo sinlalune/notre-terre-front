@@ -8,8 +8,6 @@ import {
 	Text,
 } from "react-native";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 const hauteur = Dimensions.get("window").height;
 
 const SplashScreen = ({ navigation }) => {
@@ -22,9 +20,7 @@ const SplashScreen = ({ navigation }) => {
 			// Check if user is set or not
 			// If not go to Login
 			// else go to Research
-			AsyncStorage.getItem("user").then((value) =>
-				navigation.replace(value === null ? "Login" : "BottomNavigator"),
-			);
+			navigation.navigate("Login");
 		}, 5000);
 	}, []);
 
