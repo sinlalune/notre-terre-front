@@ -23,7 +23,7 @@ const SplashScreen = ({ navigation }) => {
 			// If not go to Login
 			// else go to Research
 			AsyncStorage.getItem("user").then((value) =>
-				navigation.replace(value === null ? "Login" : "BottomNavigator"),
+				navigation.replace(value === null ? "Login" : "BottomNavigator")
 			);
 		}, 5000);
 	}, []);
