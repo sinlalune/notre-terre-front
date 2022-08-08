@@ -17,6 +17,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { Button, Input } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { connect } from "react-redux";
+import { API_BACKEND } from "@env";
 
 const largeur = Dimensions.get("window").width;
 const hauteur = Dimensions.get("window").height;
@@ -40,17 +41,17 @@ function LoginScreen(props) {
 	}, []);
 	console.log(
 		"➡️ Mise en place du AsyncStorage :",
-		AsyncStorage.getItem("user"),
+		AsyncStorage.getItem("user")
 	);
 
 	var handleSubmitSignIn = async () => {
-		console.log("➡️ API du backend", REACT_APP_API_BACKEND);
+		console.log("➡️ API du backend", API_BACKEND);
 		// Fermeture du clavier
 		Keyboard.dismiss();
 		setIsLoading(true);
 		console.log("🤓🤓🤓 SignIn infos : ", signInEmail, signInPassword);
 
-		const data = await fetch(`http://${REACT_APP_API_BACKEND}/users/sign-in`, {
+		const data = await fetch(`${API_BACKEND}/users/sign-in`, {
 			method: "POST",
 			headers: { "Content-Type": "application/x-www-form-urlencoded" },
 			body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`,

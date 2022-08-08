@@ -179,7 +179,7 @@ function ProfileScreen(props) {
 									placeholder="Prénom"
 									onChangeText={(val) =>
 										setSignUpFirstName(
-											val[0].toUpperCase() + val.slice(1).toLowerCase(),
+											val[0].toUpperCase() + val.slice(1).toLowerCase()
 										)
 									}
 								/>
@@ -254,15 +254,11 @@ function ProfileScreen(props) {
 									justifyContent: "space-around",
 								}}
 							>
-								<Button
-									buttonStyle={styles.cardButton}
-									icon={
-										<Image
-											source={require("../assets/tomato.png")}
-											style={{ width: 50, height: 50 }}
-										/>
-									}
+								<Image
+									source={require("../assets/tomato.png")}
+									style={{ width: 50, height: 50 }}
 								/>
+
 								<Button
 									buttonStyle={styles.cardButton}
 									icon={
@@ -339,7 +335,7 @@ function ProfileScreen(props) {
 												},
 											},
 										],
-										{ cancelable: false },
+										{ cancelable: false }
 									);
 								}}
 							></Button>
