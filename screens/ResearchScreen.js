@@ -1,6 +1,6 @@
 //Import of React
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 
 import { API_BACKEND } from "@env";
 
@@ -97,15 +97,27 @@ export default function ResearchScreen() {
 					flexDirection: "column",
 					justifyContent: "center",
 					alignItems: "center",
+					backgroundColor: "#0EA888",
+					marginBottom: 15,
 				}}
 			>
-				<Text style={styles.logoText}>Ma Recherche</Text>
-				<Text style={styles.tagLineText}>
-					Vous aussi, invitez les meilleurs aliments dans votre cuisine
+				<View
+					style={{
+						marginBottom: 25,
+					}}
+				/>
+				<Text style={styles.logoText}>
+					Notre Terre{" "}
+					<Image
+						style={styles.logoImg}
+						source={require("../assets/logonotreterre.png")}
+					/>
 				</Text>
 			</View>
+			<Text style={styles.tagLineText}>Ma Recherche</Text>
+
 			<Input
-				containerStyle={{ marginBottom: 10, width: "70%" }}
+				containerStyle={{ marginBottom: 5, width: "70%" }}
 				inputStyle={{ marginLeft: 10 }}
 				placeholder="Fraise, Paris ..."
 			/>
@@ -163,14 +175,17 @@ const styles = StyleSheet.create({
 		fontSize: 35,
 		fontFamily: "notoserif",
 		backgroundColor: "#0EA888",
+		textAlign: "center",
+		paddingRight: 50,
 	},
 	tagLineText: {
-		color: "white",
-		fontSize: 12,
 		textAlign: "center",
 		marginTop: 5,
-		fontStyle: "italic",
-		backgroundColor: "#0EA888",
 		marginBottom: 10,
+	},
+	logoImg: {
+		width: 25,
+		height: 30,
+		resizeMode: "contain",
 	},
 });
