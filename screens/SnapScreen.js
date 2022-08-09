@@ -80,6 +80,62 @@ function SnapScreen(props) {
 						<IconIonic name="camera-reverse" size={20} color="#ffffff" />
 						<Text style={styles.iconTextInt}>Flip</Text>
 					</TouchableOpacity>
+
+					<TouchableOpacity
+						style={{
+							flex: 1,
+							alignItems: "center",
+						}}
+						onPress={async () => {
+							setVisible(true);
+							if (camera) {
+								let photo = await camera.takePictureAsync({
+									quality: 0.4,
+									base64: true,
+									exif: true,
+									skipProcessing: true,
+								});
+
+								var data = new FormData();
+
+								data.append("photoTaken", {
+									uri: photo.uri,
+									type: "image/jpeg",
+									name: "user_avatar.jpg",
+								});
+
+								const rawResponse = await fetch(
+									"http://192.168.1.73:3000/upload",
+									{
+										method: "post",
+										body: data,
+									},
+								);
+								const response = await rawResponse.json();
+
+								props.onSnap(response.url);
+
+								setVisible(false);
+								console.log("uri :", photo.uri);
+								console.log("width :", photo.width);
+								console.log("height :", photo.height);
+								console.log("exif :", photo.exif);
+								console.log("base64 :", photo.base64);
+							}
+						}}
+					>
+						<MaterialIcons name="stop-circle" size={88} color="#ffffff" />
+						<Text
+							style={{
+								fontSize: 14,
+								marginBottom: hauteur * 0.015,
+								textAlign: "center",
+								color: "#ffffff",
+							}}
+						>
+							Take a photo
+						</Text>
+					</TouchableOpacity>
 				</View>
 			</Camera>
 		);
