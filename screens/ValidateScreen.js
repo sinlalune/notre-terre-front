@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
 
 import { connect } from "react-redux";
@@ -6,12 +6,12 @@ import { connect } from "react-redux";
 const largeur = Dimensions.get("window").width;
 const hauteur = Dimensions.get("window").height;
 
-export default function ValidateScreen() {
+const ValidateScreen = (props) => {
 	useEffect(() => {
 		setTimeout(() => {
 			// Redirige vers la page Research après l'insciption
 			props.navigation.navigate("BottomNavigator", { screen: "Research" });
-		}, 800);
+		}, 1500);
 	}, []);
 
 	return (
@@ -49,7 +49,10 @@ export default function ValidateScreen() {
 			</Text>
 		</View>
 	);
-}
+};
+
+export default ValidateScreen;
+
 const styles = StyleSheet.create({
 	mainView: {
 		backgroundColor: "#0EA888",

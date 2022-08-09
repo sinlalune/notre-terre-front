@@ -14,7 +14,7 @@ import {
 	ScrollView,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Button, Input } from "react-native-elements";
+import { Button } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { connect } from "react-redux";
 
@@ -71,7 +71,7 @@ function LoginScreen(props) {
 		setIsSignupLoading(true);
 		setTimeout(() => {
 			setIsSignupLoading(false);
-			props.navigation.navigate("Register");
+			props.navigation.navigate("Validate");
 			// props.navigation.navigate("BottomNavigator", { screen: "Profile" });
 		}, 800);
 	};

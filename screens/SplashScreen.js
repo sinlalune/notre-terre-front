@@ -10,7 +10,7 @@ import {
 
 const hauteur = Dimensions.get("window").height;
 
-const SplashScreen = ({ navigation }) => {
+const SplashScreen = (props) => {
 	// Définie le state de l'animation
 	const [animating, setAnimating] = useState(true);
 
@@ -18,7 +18,7 @@ const SplashScreen = ({ navigation }) => {
 		setTimeout(() => {
 			setAnimating(false);
 			// Redirige après l'animation sur le Login
-			navigation.navigate("Login");
+			props.navigation.navigate("Login");
 		}, 5000);
 	}, []);
 

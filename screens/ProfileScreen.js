@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { REACT_APP_API_BACKEND } from "@env";
+import { API_BACKEND } from "@env";
 import {
 	View,
 	Text,
 	StyleSheet,
 	ImageBackground,
 	Dimensions,
-	TouchableOpacity,
 	Image,
-	Keyboard,
 	TextInput,
 	ScrollView,
 	Alert,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Button, Card, Input } from "react-native-elements";
+import { Button } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { connect } from "react-redux";
 
