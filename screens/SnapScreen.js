@@ -9,7 +9,6 @@ import {
 import { Camera } from "expo-camera";
 import { useIsFocused } from "@react-navigation/native";
 import { Overlay } from "react-native-elements";
-import IconFontAwesome from "react-native-vector-icons/FontAwesome";
 import IconIonic from "react-native-vector-icons/Ionicons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
@@ -58,16 +57,16 @@ function SnapScreen(props) {
 					}}
 				>
 					<TouchableOpacity
-						style={styles.iconExt}
+						style={styles.iconStyle}
 						onPress={() => {
 							props.navigation.navigate("Register");
 						}}
 					>
-						<IconIonic name="arrow-back-circle" size={20} color="#ffffff" />
+						<IconIonic name="arrow-back-circle" size={25} color="#ffffff" />
 					</TouchableOpacity>
 
 					<TouchableOpacity
-						style={styles.iconInt}
+						style={styles.iconStyle}
 						onPress={() => {
 							setType(
 								type === Camera.Constants.Type.back
@@ -76,7 +75,7 @@ function SnapScreen(props) {
 							);
 						}}
 					>
-						<IconIonic name="camera-reverse" size={20} color="#ffffff" />
+						<IconIonic name="camera-reverse" size={25} color="#ffffff" />
 					</TouchableOpacity>
 
 					<TouchableOpacity
@@ -122,11 +121,11 @@ function SnapScreen(props) {
 							}
 						}}
 					>
-						<MaterialIcons name="stop-circle" size={88} color="#ffffff" />
+						<MaterialIcons name="stop-circle" size={90} color="#ffffff" />
 					</TouchableOpacity>
 
 					<TouchableOpacity
-						style={styles.iconInt}
+						style={styles.iconStyle}
 						onPress={() => {
 							setFlash(
 								flash === Camera.Constants.FlashMode.off
@@ -135,11 +134,11 @@ function SnapScreen(props) {
 							);
 						}}
 					>
-						<IconFontAwesome name="flash" size={20} color="#ffffff" />
+						<Entypo name="flashlight" size={25} color="#ffffff" />
 					</TouchableOpacity>
 
 					<TouchableOpacity
-						style={styles.iconExt}
+						style={styles.iconStyle}
 						onPress={() => {
 							setFlash(
 								flash === Camera.Constants.FlashMode.off
@@ -148,7 +147,7 @@ function SnapScreen(props) {
 							);
 						}}
 					>
-						<FontAwesome name="picture-o" size={20} color="#ffffff" />
+						<FontAwesome name="picture-o" size={25} color="#ffffff" />
 					</TouchableOpacity>
 				</View>
 			</Camera>
@@ -178,21 +177,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 const styles = StyleSheet.create({
-	iconTextInt: { fontSize: 14, color: "white", textAlign: "center" },
-	iconTextExt: {
-		fontSize: 14,
-		color: "white",
-		textAlign: "center",
-	},
-	iconInt: {
+	iconStyle: {
 		flex: 1,
 		alignItems: "center",
-		marginBottom: hauteur * 0.059,
-	},
-	iconExt: {
-		flex: 1,
-		alignItems: "center",
-		marginBottom: hauteur * 0.043,
+		marginBottom: hauteur * 0.04,
 	},
 });
 
