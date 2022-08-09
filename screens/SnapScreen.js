@@ -66,6 +66,20 @@ function SnapScreen(props) {
 						<IconIonic name="arrow-back-circle" size={20} color="#ffffff" />
 						<Text style={styles.iconTextExt}>Retour en arrière</Text>
 					</TouchableOpacity>
+
+					<TouchableOpacity
+						style={styles.iconInt}
+						onPress={() => {
+							setType(
+								type === Camera.Constants.Type.back
+									? Camera.Constants.Type.front
+									: Camera.Constants.Type.back,
+							);
+						}}
+					>
+						<IconIonic name="camera-reverse" size={20} color="#ffffff" />
+						<Text style={styles.iconTextInt}>Flip</Text>
+					</TouchableOpacity>
 				</View>
 			</Camera>
 		);
