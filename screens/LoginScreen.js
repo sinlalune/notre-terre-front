@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { REACT_APP_API_BACKEND } from "@env";
+import { API_BACKEND } from "@env";
 import {
 	View,
 	Text,
@@ -18,6 +18,7 @@ import { Button, Input } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { connect } from "react-redux";
 
+const Header = require("../components/Header");
 const largeur = Dimensions.get("window").width;
 const hauteur = Dimensions.get("window").height;
 
@@ -40,13 +41,13 @@ function LoginScreen(props) {
 	}, []);
 
 	var handleSubmitSignIn = async () => {
-		console.log("➡️ API du backend", REACT_APP_API_BACKEND);
+		console.log("➡️ API du backend", API_BACKEND);
 		// Fermeture du clavier
 		Keyboard.dismiss();
 		setIsLoading(true);
 		console.log("🤓🤓🤓 SignIn infos : ", signInEmail, signInPassword);
 
-		const data = await fetch(`http://${REACT_APP_API_BACKEND}/users/sign-in`, {
+		const data = await fetch(`http://10.2.2.164:3000/users/sign-in`, {
 			method: "POST",
 			headers: { "Content-Type": "application/x-www-form-urlencoded" },
 			body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`,
@@ -87,19 +88,7 @@ function LoginScreen(props) {
 				extraHeight={(hauteur * 1) / 3} // make some height so the keyboard wont cover other component
 				contentContainerStyle={{ flexGrow: 1 }} // make the scrollView full screen
 			>
-				<View style={styles.header}>
-					<Image
-						source={require("../assets/logonotreterre.png")}
-						style={{
-							height: 150,
-							resizeMode: "contain",
-						}}
-					/>
-					<Text style={styles.logoText}>Notre Terre</Text>
-					<Text style={styles.tagLineText}>
-						Vous aussi, invitez les meilleurs aliments dans votre cuisine
-					</Text>
-				</View>
+				<Header />
 
 				<ImageBackground
 					source={require("../assets/loginbackground.jpg")}
@@ -321,25 +310,6 @@ function LoginScreen(props) {
 const styles = StyleSheet.create({
 	mainView: {
 		flex: 1,
-	},
-	header: {
-		backgroundColor: "#0EA888",
-		flexDirection: "column",
-		justifyContent: "center",
-		alignItems: "center",
-		height: (hauteur * 1) / 3,
-	},
-	logoText: {
-		fontWeight: "bold",
-		color: "white",
-		fontSize: 35,
-		fontFamily: "notoserif",
-	},
-	tagLineText: {
-		color: "white",
-		fontSize: 12,
-		textAlign: "center",
-		fontStyle: "italic",
 	},
 	background: {
 		flex: 1,

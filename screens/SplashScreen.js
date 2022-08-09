@@ -11,15 +11,13 @@ import {
 const hauteur = Dimensions.get("window").height;
 
 const SplashScreen = ({ navigation }) => {
-	//State for ActivityIndicator animation
+	// Définie le state de l'animation
 	const [animating, setAnimating] = useState(true);
 
 	useEffect(() => {
 		setTimeout(() => {
 			setAnimating(false);
-			// Check if user is set or not
-			// If not go to Login
-			// else go to Research
+			// Redirige après l'animation sur le Login
 			navigation.navigate("Login");
 		}, 5000);
 	}, []);

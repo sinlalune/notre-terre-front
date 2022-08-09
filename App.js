@@ -69,8 +69,8 @@ const BottomNavigator = () => {
 				},
 			}}
 		>
-			<Tab.Screen name="Research" component={ResearchScreen} />
 			<Tab.Screen name="Garden" component={GardenScreen} />
+			<Tab.Screen name="Research" component={ResearchScreen} />
 			<Tab.Screen name="Basket" component={BasketScreen} />
 			<Tab.Screen name="Profile" component={ProfileScreen} />
 		</Tab.Navigator>
