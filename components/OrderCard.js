@@ -17,6 +17,7 @@ const ProductAvaibility = require("../components/ProductAvaibility");
 const ProductIcon = require("../components/productIcon");
 const LikeIcon = require("../components/LikeIcon");
 const AddIcon = require("../components/AddIcon");
+const VisualOrderState = require("../components/VisualOrderState");
 
 import { Icon } from "@rneui/themed";
 
@@ -36,7 +37,7 @@ const OrderCard = (product, i) => {
 						padding: 20,
 						margin: 1,
 						width: 340,
-						height: 200,
+						height: 280,
 						backgroundColor: "white",
 						borderRadius: 5,
 					}}
@@ -57,14 +58,9 @@ const OrderCard = (product, i) => {
 							<ProductAvaibility date_harvest={product.date_harvest} />
 						</View>
 					</View>
-					<View
-						style={{
-							padding: 20,
-							margin: 1,
-							width: 340,
-							height: 30,
-						}}
-					></View>
+					<View>
+						<VisualOrderState />
+					</View>
 					<View
 						style={{ flexDirection: "row", justifyContent: "space-between" }}
 					>

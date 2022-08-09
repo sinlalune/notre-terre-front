@@ -18,11 +18,15 @@ const ProductIcon = require("../components/productIcon");
 const LikeIcon = require("../components/LikeIcon");
 const AddIcon = require("../components/AddIcon");
 
-import { API_BACKEND } from "@env";
-
 import { Icon } from "@rneui/themed";
 
+import { API_BACKEND } from "@env";
+
 const ProductCard = (product, i) => {
+	async function handleClickAddProduct() {
+		await fetch(`${API_BACKEND}/card/productList`);
+	}
+
 	return (
 		<View
 			key={i}
@@ -51,7 +55,11 @@ const ProductCard = (product, i) => {
 						}}
 					>
 						<ProductIcon />
-						<AddIcon />
+						<AddIcon
+							onPress={() => {
+								handleClickAddProduct(props.product_id);
+							}}
+						/>
 						<LikeIcon />
 					</View>
 					<View

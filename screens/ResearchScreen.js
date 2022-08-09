@@ -1,6 +1,16 @@
 //Import of React
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import {
+	View,
+	Text,
+	StyleSheet,
+	ScrollView,
+	Image,
+	TextInput,
+	Dimensions,
+} from "react-native";
+
+const HeaderMini = require("../components/HeaderMini");
 
 import { API_BACKEND } from "@env";
 
@@ -18,6 +28,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Import of Icons
 import { Ionicons } from "@expo/vector-icons";
+
+const largeur = Dimensions.get("window").width;
+const hauteur = Dimensions.get("window").height;
 
 const ProductCard = require("../components/ProductCard");
 
@@ -53,7 +66,7 @@ export function ResearchScreen(props) {
 		})();
 	}, []);
 
-	console.log("liste", productList);
+	console.log("liste 🚨", productList);
 
 	const CardList = productList.map((product, i) => {
 		return (
@@ -77,17 +90,29 @@ export function ResearchScreen(props) {
 	const [locAgri, setLocAgri] = useState([]);
 
 	var markerPOI = productList.map((product, i) => {
+		if (product.type == "vegetable") {
+			var pin = require("../assets/pin_vegetable.png");
+		} else {
+			var pin = require("../assets/pin_fruit.png");
+		}
 		return (
 			<Marker
 				key={i}
-				pinColor="#0EA888"
 				coordinate={{
 					latitude: product.domain_adress[0].lat,
 					longitude: product.domain_adress[0].lon,
 				}}
 				title={product.name}
 				description={product.domain_name}
-			/>
+			>
+				<Image
+					source={pin}
+					style={{
+						width: 60,
+						height: 60,
+					}}
+				/>
+			</Marker>
 		);
 	});
 
@@ -98,26 +123,30 @@ export function ResearchScreen(props) {
 					flexDirection: "column",
 					justifyContent: "center",
 					alignItems: "center",
+					backgroundColor: "#0EA888",
+					marginBottom: 15,
 				}}
 			>
-				<Text style={styles.logoText}>Ma Recherche</Text>
-				<Text style={styles.tagLineText}>
-					Vous aussi, invitez les meilleurs aliments dans votre cuisine
-				</Text>
+				<HeaderMini />
 			</View>
+			<Text style={styles.tagLineText}>Ma Recherche</Text>
+
 			<Input
 				containerStyle={{ marginBottom: 10, width: "70%" }}
 				inputStyle={{ marginLeft: 10 }}
 				placeholder="Fraise, Paris ..."
 			/>
-
 			<MapView
 				style={{ flex: 1, marginLeft: 10, marginRight: 10 }}
+				initialRegion={{
+					/* 					latitude: 48.860337,
+					longitude: 2.344355, */
+					latitudeDelta: 0.0922,
+					longitudeDelta: 0.0421,
+				}}
 				region={{
 					latitude: currentLatitude,
 					longitude: currentLongitude,
-					latitudeDelta: 0.0922,
-					longitudeDelta: 0.0421,
 				}}
 			>
 				<Marker
@@ -127,7 +156,15 @@ export function ResearchScreen(props) {
 					}}
 					title="Your Position"
 					description="You are here"
-				/>
+				>
+					<Image
+						source={require("../assets/pin_user.png")}
+						style={{
+							width: 55,
+							height: 55,
+						}}
+					/>
+				</Marker>
 				{markerPOI}
 			</MapView>
 			<ScrollView style={{ marginTop: 10, flex: 3 }}>
@@ -161,18 +198,24 @@ const styles = StyleSheet.create({
 	logoText: {
 		fontWeight: "bold",
 		color: "white",
-		fontSize: 35,
+		fontSize: 20,
 		fontFamily: "notoserif",
 		backgroundColor: "#0EA888",
+		textAlign: "center",
+		paddingRight: 50,
 	},
 	tagLineText: {
-		color: "white",
-		fontSize: 12,
 		textAlign: "center",
 		marginTop: 5,
-		fontStyle: "italic",
-		backgroundColor: "#0EA888",
 		marginBottom: 10,
+		color: "#0EA888",
+		fontWeight: "bold",
+		fontSize: 25,
+	},
+	logoImg: {
+		width: 25,
+		height: 30,
+		resizeMode: "contain",
 	},
 });
 
