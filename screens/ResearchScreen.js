@@ -31,7 +31,7 @@ const hauteur = Dimensions.get("window").height;
 const ProductCard = require("../components/ProductCard");
 
 // ASKS PERMISSIONS FOR LOCALISATION
-export default function ResearchScreen() {
+export default function ResearchScreen(props) {
 	const [currentLatitude, setCurrentLatitude] = useState(0);
 	const [currentLongitude, setCurrentLongitude] = useState(0);
 
@@ -141,7 +141,14 @@ export default function ResearchScreen() {
 					</Text>
 				</View>
 			</View>
-			<Text style={styles.tagLineText}>Ma Recherche</Text>
+			<Text
+				style={styles.tagLineText}
+				onPress={() => {
+					props.navigation.navigate("Producer");
+				}}
+			>
+				Ma Recherche
+			</Text>
 
 			<Input
 				containerStyle={{ marginBottom: 10, width: "70%" }}
