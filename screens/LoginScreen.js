@@ -72,8 +72,7 @@ function LoginScreen(props) {
 		setIsSignupLoading(true);
 		setTimeout(() => {
 			setIsSignupLoading(false);
-			// props.navigation.navigate("Register");
-			props.navigation.navigate("Snap");
+			props.navigation.navigate("Register");
 		}, 800);
 	};
 
