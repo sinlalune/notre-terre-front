@@ -64,7 +64,6 @@ function SnapScreen(props) {
 						}}
 					>
 						<IconIonic name="arrow-back-circle" size={20} color="#ffffff" />
-						<Text style={styles.iconTextExt}>Retour en arrière</Text>
 					</TouchableOpacity>
 
 					<TouchableOpacity
@@ -78,7 +77,6 @@ function SnapScreen(props) {
 						}}
 					>
 						<IconIonic name="camera-reverse" size={20} color="#ffffff" />
-						<Text style={styles.iconTextInt}>Flip</Text>
 					</TouchableOpacity>
 
 					<TouchableOpacity
@@ -125,16 +123,6 @@ function SnapScreen(props) {
 						}}
 					>
 						<MaterialIcons name="stop-circle" size={88} color="#ffffff" />
-						<Text
-							style={{
-								fontSize: 14,
-								marginBottom: hauteur * 0.015,
-								textAlign: "center",
-								color: "#ffffff",
-							}}
-						>
-							Take a photo
-						</Text>
 					</TouchableOpacity>
 
 					<TouchableOpacity
@@ -148,7 +136,19 @@ function SnapScreen(props) {
 						}}
 					>
 						<IconFontAwesome name="flash" size={20} color="#ffffff" />
-						<Text style={styles.iconTextInt}>Flash</Text>
+					</TouchableOpacity>
+
+					<TouchableOpacity
+						style={styles.iconExt}
+						onPress={() => {
+							setFlash(
+								flash === Camera.Constants.FlashMode.off
+									? Camera.Constants.FlashMode.torch
+									: Camera.Constants.FlashMode.off,
+							);
+						}}
+					>
+						<FontAwesome name="picture-o" size={20} color="#ffffff" />
 					</TouchableOpacity>
 				</View>
 			</Camera>
