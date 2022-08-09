@@ -33,6 +33,8 @@ import GardenScreen from "./screens/GardenScreen";
 import ResearchScreen from "./screens/ResearchScreen";
 import ValidateScreen from "./screens/ValidateScreen";
 import SplashScreen from "./screens/SplashScreen";
+import SuccessScreen from "./screens/SuccessScreen";
+import SnapScreen from "./screens/SnapScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -62,8 +64,9 @@ const BottomNavigator = () => {
 				},
 			})}
 			tabBarOptions={{
-				activeTintColor: "#000000",
-				inactiveTintColor: "#FFFFFF",
+				activeTintColor: "#fc8c03",
+				inactiveTintColor: "white",
+				showLabel: false, // Retirer le nom des tab.screen sous les logos
 				style: {
 					backgroundColor: "#0CA789",
 				},
@@ -85,8 +88,10 @@ export default function App() {
 					<Stack.Screen name="SplashScreen" component={SplashScreen} />
 					<Stack.Screen name="Login" component={LoginScreen} />
 					<Stack.Screen name="Register" component={RegisterScreen} />
+					<Stack.Screen name="Success" component={SuccessScreen} />
 					<Stack.Screen name="Validate" component={ValidateScreen} />
 					<Stack.Screen name="Producer" component={ProducerScreen} />
+					<Stack.Screen name="Snap" component={SnapScreen} />
 					<Stack.Screen name="BottomNavigator" component={BottomNavigator} />
 				</Stack.Navigator>
 			</NavigationContainer>

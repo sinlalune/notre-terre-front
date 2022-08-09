@@ -18,6 +18,8 @@ import { Button } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { connect } from "react-redux";
 
+console.log("➡️ API du backend", API_BACKEND);
+
 const Header = require("../components/Header");
 const largeur = Dimensions.get("window").width;
 const hauteur = Dimensions.get("window").height;
@@ -41,7 +43,6 @@ function LoginScreen(props) {
 	}, []);
 
 	var handleSubmitSignIn = async () => {
-		console.log("➡️ API du backend", API_BACKEND);
 		// Fermeture du clavier
 		Keyboard.dismiss();
 		setIsLoading(true);
@@ -67,12 +68,12 @@ function LoginScreen(props) {
 		}
 	};
 
-	const handleRedirect = () => {
+	const handleSubmitSignUp = () => {
 		setIsSignupLoading(true);
 		setTimeout(() => {
 			setIsSignupLoading(false);
-			props.navigation.navigate("Validate");
-			// props.navigation.navigate("BottomNavigator", { screen: "Profile" });
+			// props.navigation.navigate("Register");
+			props.navigation.navigate("Snap");
 		}, 800);
 	};
 
@@ -83,10 +84,10 @@ function LoginScreen(props) {
 	return (
 		<View style={styles.mainView}>
 			<KeyboardAwareScrollView
-				extraScrollHeight={30} // (when scroll) to have extra height between keyboard and text input
+				extraScrollHeight={30} // Pendant le scroll crée un écart entre le keyboard et le text inputto have extra height between keyboard and text input
 				enableOnAndroid={true}
-				extraHeight={(hauteur * 1) / 3} // make some height so the keyboard wont cover other component
-				contentContainerStyle={{ flexGrow: 1 }} // make the scrollView full screen
+				extraHeight={(hauteur * 1) / 3}
+				contentContainerStyle={{ flexGrow: 1 }}
 			>
 				<Header />
 
@@ -296,7 +297,7 @@ function LoginScreen(props) {
 										fontWeight: "bold",
 										fontSize: 16,
 									}}
-									onPress={() => handleRedirect()}
+									onPress={() => handleSubmitSignUp()}
 								/>
 							)}
 						</View>

@@ -41,7 +41,7 @@ export default function RegisterScreen(props) {
 	const colorLike = "#0EA888";
 	const colorUnLike = "#ddded9";
 
-	var handleSubmitSignUp = async (props) => {
+	var handleSubmitSignUp = async () => {
 		console.log("🤖🤖🤖 SignUp infos : ", signUpEmail, signUpPassword);
 
 		const data = await fetch(`http://10.2.2.164:3000/users/sign-up`, {
@@ -56,9 +56,7 @@ export default function RegisterScreen(props) {
 		if (body.result) {
 			AsyncStorage.setItem("user", JSON.stringify(body.searchUser));
 
-			props.saveUserData(body.searchUser);
 			props.navigation.navigate("Validate");
-			// props.navigation.navigate("BottomNavigator", { screen: "Profile" });
 		} else {
 			setListErrorsSignUp(body.error);
 		}
@@ -71,10 +69,10 @@ export default function RegisterScreen(props) {
 	return (
 		<View style={styles.mainView}>
 			<KeyboardAwareScrollView
-				extraScrollHeight={30} // (when scroll) to have extra height between keyboard and text input
+				extraScrollHeight={30} // Pendant le scroll crée un écart entre le keyboard et le text inputto have extra height between keyboard and text input
 				enableOnAndroid={true}
-				extraHeight={(hauteur * 1) / 3} // make some height so the keyboard wont cover other component
-				// contentContainerStyle={{ flexGrow: 1 }} // make the scrollView full screen
+				extraHeight={(hauteur * 1) / 3}
+				contentContainerStyle={{ flexGrow: 1 }}
 			>
 				<Header />
 
@@ -87,17 +85,19 @@ export default function RegisterScreen(props) {
 					<ScrollView>
 						<View style={styles.containerGeneral}>
 							<Text style={styles.titleCategory}>S'enregistrer</Text>
-							<Image
-								source={require("../assets/avatar.png")}
-								style={{
-									width: 120,
-									height: 120,
-									alignContent: "center",
-									alignItems: "center",
-									marginBottom: hauteur * 0.01,
-									alignSelf: "center",
-								}}
-							/>
+							<View>
+								<Image
+									source={require("../assets/avatarphoto.png")}
+									style={{
+										width: 120,
+										height: 120,
+										alignContent: "center",
+										alignItems: "center",
+										marginBottom: hauteur * 0.01,
+										alignSelf: "center",
+									}}
+								/>
+							</View>
 							<Text
 								style={{
 									alignContent: "center",
@@ -139,16 +139,14 @@ export default function RegisterScreen(props) {
 								<TextInput
 									style={styles.formInputRow}
 									placeholder="Nom"
-									onChangeText={(val) =>
-										setSignUpLastName(val.toUpperCaseCase())
-									}
+									onChangeText={(val) => setSignUpLastName(val.toUpperCase())}
 								/>
 								<TextInput
 									style={styles.formInputRow}
 									placeholder="Prénom"
 									onChangeText={(val) =>
 										setSignUpFirstName(
-											val[0].toUpperCase() + val.slice(1).toLowerCase()
+											val[0].toUpperCase() + val.slice(1).toLowerCase(),
 										)
 									}
 								/>
@@ -193,7 +191,7 @@ export default function RegisterScreen(props) {
 								<TextInput
 									style={styles.formInputRow}
 									placeholder="Ville"
-									onChangeText={(val) => setSignUpCity(val.toUpperCaseCase())}
+									onChangeText={(val) => setSignUpCity(val.toUpperCase())}
 								/>
 							</View>
 							{tabErrorsSignUp}
