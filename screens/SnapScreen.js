@@ -50,7 +50,22 @@ function SnapScreen(props) {
 				flashMode={flash}
 				ref={(ref) => (camera = ref)}
 			>
-				
+				<View
+					style={{
+						flex: 1,
+						flexDirection: "row",
+						alignItems: "flex-end",
+					}}
+				>
+					<TouchableOpacity
+						style={styles.iconExt}
+						onPress={() => {
+							props.navigation.navigate("Register");
+						}}
+					>
+						<IconIonic name="arrow-back-circle" size={20} color="#ffffff" />
+						<Text style={styles.iconTextExt}>Retour en arrière</Text>
+					</TouchableOpacity>
 				</View>
 			</Camera>
 		);
@@ -69,7 +84,6 @@ function SnapScreen(props) {
 	);
 }
 
-	
 function mapDispatchToProps(dispatch) {
 	// viens enregistrer dans le store url photo
 	return {
