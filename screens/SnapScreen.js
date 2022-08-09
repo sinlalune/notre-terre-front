@@ -37,6 +37,38 @@ function SnapScreen(props) {
 		})();
 	}, []);
 
+	var cameraDisplay;
+	if (hasPermission && isFocused) {
+		cameraDisplay = (
+			<Camera
+				style={{
+					width: largeur * 1,
+					height: hauteur * 0.7,
+					marginTop: hauteur * 0.2,
+				}}
+				type={type}
+				flashMode={flash}
+				ref={(ref) => (camera = ref)}
+			>
+				
+				</View>
+			</Camera>
+		);
+	} else {
+		cameraDisplay = <View style={{ flex: 1 }}></View>;
+	}
+
+	return (
+		<View style={{ flex: 1 }}>
+			<Overlay isVisible={visible} width="auto" height="auto">
+				<Text>Enregistrement...</Text>
+			</Overlay>
+
+			{cameraDisplay}
+		</View>
+	);
+}
+
 	
 function mapDispatchToProps(dispatch) {
 	// viens enregistrer dans le store url photo
