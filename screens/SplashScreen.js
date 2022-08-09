@@ -8,23 +8,17 @@ import {
 	Text,
 } from "react-native";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 const hauteur = Dimensions.get("window").height;
 
 const SplashScreen = ({ navigation }) => {
-	//State for ActivityIndicator animation
+	// Définie le state de l'animation
 	const [animating, setAnimating] = useState(true);
 
 	useEffect(() => {
 		setTimeout(() => {
 			setAnimating(false);
-			// Check if user is set or not
-			// If not go to Login
-			// else go to Research
-			AsyncStorage.getItem("user").then((value) =>
-				navigation.replace(value === null ? "Login" : "BottomNavigator")
-			);
+			// Redirige après l'animation sur le Login
+			navigation.navigate("Login");
 		}, 5000);
 	}, []);
 

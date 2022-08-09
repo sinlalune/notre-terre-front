@@ -2,22 +2,21 @@ import React from "react";
 import * as Font from "expo-font";
 import { StyleSheet, View, Text, Image, Dimensions } from "react-native";
 
+const largeur = Dimensions.get("window").width;
 const hauteur = Dimensions.get("window").height;
 
-const Header = () => {
+const HeaderMini = () => {
 	return (
 		<View style={styles.header}>
 			<Image
 				source={require("../assets/logonotreterre.png")}
 				style={{
-					height: hauteur * 0.18,
-					resizeMode: "contain",
+					height: hauteur * 0.08,
+					width: largeur * 0.2,
+					marginRight: largeur * 0.02,
 				}}
 			/>
 			<Text style={styles.logoText}>Notre Terre</Text>
-			<Text style={styles.tagLineText}>
-				Vous aussi, invitez les meilleurs aliments dans votre cuisine
-			</Text>
 		</View>
 	);
 };
@@ -25,23 +24,19 @@ const Header = () => {
 const styles = StyleSheet.create({
 	header: {
 		backgroundColor: "#0EA888",
-		flexDirection: "column",
-		justifyContent: "center",
+		flexDirection: "row",
 		alignItems: "center",
-		height: (hauteur * 1) / 3,
+		justifyContent: "center",
+		height: hauteur * 0.12,
 	},
 	logoText: {
 		fontWeight: "bold",
 		color: "white",
-		fontSize: 35,
+		fontSize: 24,
 		fontFamily: "notoserif",
-	},
-	tagLineText: {
-		color: "white",
-		fontSize: 12,
-		textAlign: "center",
-		fontStyle: "italic",
+		marginTop: hauteur * 0.015,
+		marginRight: largeur * 0.21,
 	},
 });
 
-module.exports = Header;
+module.exports = HeaderMini;

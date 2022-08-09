@@ -10,6 +10,8 @@ import {
 	Dimensions,
 } from "react-native";
 
+const HeaderMini = require("../components/HeaderMini");
+
 import { API_BACKEND } from "@env";
 
 //Import of MapView and Marker
@@ -17,10 +19,12 @@ import MapView, { Marker } from "react-native-maps";
 
 // Import Input
 import { Input, Button } from "react-native-elements";
+import { connect } from "react-redux";
 
 //Import of components for Location and Permissions
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Import of Icons
 import { Ionicons } from "@expo/vector-icons";
@@ -31,10 +35,9 @@ const hauteur = Dimensions.get("window").height;
 const ProductCard = require("../components/ProductCard");
 
 // ASKS PERMISSIONS FOR LOCALISATION
-export default function ResearchScreen(props) {
+export function ResearchScreen(props) {
 	const [currentLatitude, setCurrentLatitude] = useState(0);
 	const [currentLongitude, setCurrentLongitude] = useState(0);
-
 	useEffect(() => {
 		async function askPermissions() {
 			let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -124,22 +127,7 @@ export default function ResearchScreen(props) {
 					marginBottom: 15,
 				}}
 			>
-				<View
-					style={{
-						marginBottom: 25,
-						justifyContent: "center",
-						alignItems: "center",
-						flexDirection: "row",
-					}}
-				>
-					<Text style={styles.logoText}>
-						Notre Terre{" "}
-						<Image
-							style={styles.logoImg}
-							source={require("../assets/logonotreterre.png")}
-						/>
-					</Text>
-				</View>
+				<HeaderMini />
 			</View>
 			<Text
 				style={styles.tagLineText}
@@ -237,3 +225,11 @@ const styles = StyleSheet.create({
 		resizeMode: "contain",
 	},
 });
+
+function mapStateToProps(state) {
+	return {
+		user: state.user,
+	};
+}
+
+export default connect(mapStateToProps, null)(ResearchScreen);

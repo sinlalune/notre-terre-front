@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { API_BACKEND } from "@env";
 import {
 	View,
 	Text,
@@ -16,8 +17,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { Button, Input } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { connect } from "react-redux";
-import { API_BACKEND } from "@env";
 
+const Header = require("../components/Header");
 const largeur = Dimensions.get("window").width;
 const hauteur = Dimensions.get("window").height;
 
@@ -38,10 +39,6 @@ function LoginScreen(props) {
 			}
 		});
 	}, []);
-	console.log(
-		"➡️ Mise en place du AsyncStorage :",
-		AsyncStorage.getItem("user")
-	);
 
 	var handleSubmitSignIn = async () => {
 		console.log("➡️ API du backend", API_BACKEND);
@@ -50,7 +47,7 @@ function LoginScreen(props) {
 		setIsLoading(true);
 		console.log("🤓🤓🤓 SignIn infos : ", signInEmail, signInPassword);
 
-		const data = await fetch(`${API_BACKEND}/users/sign-in`, {
+		const data = await fetch(`http://10.2.2.164:3000/users/sign-in`, {
 			method: "POST",
 			headers: { "Content-Type": "application/x-www-form-urlencoded" },
 			body: `emailFromFront=${signInEmail}&passwordFromFront=${signInPassword}`,
@@ -61,7 +58,7 @@ function LoginScreen(props) {
 		console.log("✅ Enregistrement sign in : ", body);
 
 		if (body.result) {
-			props.saveUserData(body.searchUser.token);
+			props.saveUserData(body.searchUser);
 			AsyncStorage.setItem("user", JSON.stringify(body.searchUser));
 
 			props.navigation.navigate("BottomNavigator", { screen: "Research" });
@@ -91,19 +88,7 @@ function LoginScreen(props) {
 				extraHeight={(hauteur * 1) / 3} // make some height so the keyboard wont cover other component
 				contentContainerStyle={{ flexGrow: 1 }} // make the scrollView full screen
 			>
-				<View style={styles.header}>
-					<Image
-						source={require("../assets/logonotreterre.png")}
-						style={{
-							height: 150,
-							resizeMode: "contain",
-						}}
-					/>
-					<Text style={styles.logoText}>Notre Terre</Text>
-					<Text style={styles.tagLineText}>
-						Vous aussi, invitez les meilleurs aliments dans votre cuisine
-					</Text>
-				</View>
+				<Header />
 
 				<ImageBackground
 					source={require("../assets/loginbackground.jpg")}
@@ -325,25 +310,6 @@ function LoginScreen(props) {
 const styles = StyleSheet.create({
 	mainView: {
 		flex: 1,
-	},
-	header: {
-		backgroundColor: "#0EA888",
-		flexDirection: "column",
-		justifyContent: "center",
-		alignItems: "center",
-		height: (hauteur * 1) / 3,
-	},
-	logoText: {
-		fontWeight: "bold",
-		color: "white",
-		fontSize: 35,
-		fontFamily: "notoserif",
-	},
-	tagLineText: {
-		color: "white",
-		fontSize: 12,
-		textAlign: "center",
-		fontStyle: "italic",
 	},
 	background: {
 		flex: 1,

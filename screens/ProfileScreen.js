@@ -19,6 +19,7 @@ import { Button, Card, Input } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { connect } from "react-redux";
 
+const Header = require("../components/Header");
 const largeur = Dimensions.get("window").width;
 const hauteur = Dimensions.get("window").height;
 
@@ -29,20 +30,23 @@ function ProfileScreen(props) {
 	const [signUpPassword, setSignUpPassword] = useState("");
 	const [signUpFirstName, setSignUpFirstName] = useState("");
 	const [signUpLastName, setSignUpLastName] = useState("");
-	const [signUpAddress, setSignUpAddress] = useState("");
-	const [signUpPreference, setSignUpPreference] = useState("");
+
+	const [colorToDefine, setColorToDefine] = useState("#ddded9");
+	const [colorToDefine2, setColorToDefine2] = useState("#ddded9");
+	const [colorToDefine3, setColorToDefine3] = useState("#ddded9");
+	const [colorToDefine4, setColorToDefine4] = useState("#ddded9");
+	const [colorToDefine5, setColorToDefine5] = useState("#ddded9");
+
+	const colorLike = "#0EA888";
+	const colorUnLike = "#ddded9";
 
 	var handleLogOut = () => {
 		AsyncStorage.clear();
 		// props.clearUserData();
 	};
 
-	console.log("➡️ Remise à 0 du AsyncStorage : ", AsyncStorage.clear());
-
 	var handleSubmitSignUp = async (props) => {
-		console.log("🤖🤖🤖 SignUp infos: ", signUpEmail, signUpPassword);
-
-		const data = await fetch(`http://${REACT_APP_API_BACKEND}/users/sign-up`, {
+		const data = await fetch(`http://10.2.2.164:3000}/users/sign-up`, {
 			method: "POST",
 			headers: { "Content-Type": "application/x-www-form-urlencoded" },
 			body: `
@@ -50,8 +54,7 @@ function ProfileScreen(props) {
 			&passwordFromFront=${signUpPassword}
 			&firstNameFromFront=${signUpFirstName}
 			&lastNameFromFront=${signUpLastName}
-			&addressFromFront=${signUpAddress}
-			&preferenceFromFront=${signUpPreference}`,
+			&addressFromFront=${signUpAddress}`,
 		});
 
 		const body = await data.json();
@@ -69,7 +72,7 @@ function ProfileScreen(props) {
 	};
 
 	var tabErrorsSignUp = listErrorsSignUp.map((error, i) => {
-		return <Text>{error}</Text>;
+		return <Text key={i}>{error}</Text>;
 	});
 
 	return (
@@ -80,19 +83,7 @@ function ProfileScreen(props) {
 				extraHeight={(hauteur * 1) / 3} // make some height so the keyboard wont cover other component
 				// contentContainerStyle={{ flexGrow: 1 }} // make the scrollView full screen
 			>
-				<View style={styles.header}>
-					<Image
-						source={require("../assets/logonotreterre.png")}
-						style={{
-							height: 150,
-							resizeMode: "contain",
-						}}
-					/>
-					<Text style={styles.logoText}>Notre Terre</Text>
-					<Text style={styles.tagLineText}>
-						Vous aussi, invitez les meilleurs aliments dans votre cuisine
-					</Text>
-				</View>
+				<Header />
 
 				<ImageBackground
 					source={require("../assets/loginbackground.jpg")}
@@ -179,7 +170,7 @@ function ProfileScreen(props) {
 									placeholder="Prénom"
 									onChangeText={(val) =>
 										setSignUpFirstName(
-											val[0].toUpperCase() + val.slice(1).toLowerCase()
+											val[0].toUpperCase() + val.slice(1).toLowerCase(),
 										)
 									}
 								/>
@@ -207,7 +198,7 @@ function ProfileScreen(props) {
 							<TextInput
 								style={styles.formInput}
 								placeholder="Libellé de voie"
-								onChangeText={(val) => setSignUpAddress(val)}
+								onChangeText={(val) => setSignUpNameStreet(val)}
 							/>
 							<View
 								style={{
@@ -219,12 +210,12 @@ function ProfileScreen(props) {
 								<TextInput
 									style={styles.formInputRow}
 									placeholder="Code postal"
-									onChangeText={(val) => setSignUpAddress(val)}
+									onChangeText={(val) => setSignUpZipCode(val)}
 								/>
 								<TextInput
 									style={styles.formInputRow}
 									placeholder="Ville"
-									onChangeText={(val) => setSignUpAddress(val)}
+									onChangeText={(val) => setSignUpCity(val.toUpperCaseCase())}
 								/>
 							</View>
 							{tabErrorsSignUp}
@@ -254,31 +245,19 @@ function ProfileScreen(props) {
 									justifyContent: "space-around",
 								}}
 							>
-								<Image
-									source={require("../assets/tomato.png")}
-									style={{ width: 50, height: 50 }}
-								/>
-
 								<Button
-									buttonStyle={styles.cardButton}
-									icon={
-										<Image
-											source={require("../assets/carotte.png")}
-											style={{ width: 50, height: 50 }}
-										/>
-									}
-								/>
-								<Button
-									buttonStyle={styles.cardButton}
-									icon={
-										<Image
-											source={require("../assets/brocoli.png")}
-											style={{ width: 50, height: 50 }}
-										/>
-									}
-								/>
-								<Button
-									buttonStyle={styles.cardButton}
+									buttonStyle={{
+										backgroundColor: "white",
+										borderColor: colorToDefine,
+										borderWidth: 3,
+										borderRadius: 10,
+										marginHorizontal: largeur * 0.01,
+									}}
+									onPress={() => {
+										setColorToDefine(
+											colorToDefine == "#ddded9" ? "#0EA888" : "#ddded9",
+										);
+									}}
 									icon={
 										<Image
 											source={require("../assets/fraise.png")}
@@ -287,7 +266,78 @@ function ProfileScreen(props) {
 									}
 								/>
 								<Button
-									buttonStyle={styles.cardButton}
+									buttonStyle={{
+										backgroundColor: "white",
+										borderColor: colorToDefine2,
+										borderWidth: 3,
+										borderRadius: 10,
+										marginHorizontal: largeur * 0.01,
+									}}
+									onPress={() => {
+										setColorToDefine2(
+											colorToDefine2 == "#ddded9" ? "#0EA888" : "#ddded9",
+										);
+									}}
+									icon={
+										<Image
+											source={require("../assets/brocoli.png")}
+											style={{ width: 50, height: 50 }}
+										/>
+									}
+								/>
+								<Button
+									buttonStyle={{
+										backgroundColor: "white",
+										borderColor: colorToDefine3,
+										borderWidth: 3,
+										borderRadius: 10,
+										marginHorizontal: largeur * 0.01,
+									}}
+									onPress={() => {
+										setColorToDefine3(
+											colorToDefine3 == "#ddded9" ? "#0EA888" : "#ddded9",
+										);
+									}}
+									icon={
+										<Image
+											source={require("../assets/carotte.png")}
+											style={{ width: 50, height: 50 }}
+										/>
+									}
+								/>
+								<Button
+									buttonStyle={{
+										backgroundColor: "white",
+										borderColor: colorToDefine4,
+										borderWidth: 3,
+										borderRadius: 10,
+										marginHorizontal: largeur * 0.01,
+									}}
+									onPress={() => {
+										setColorToDefine4(
+											colorToDefine4 == "#ddded9" ? "#0EA888" : "#ddded9",
+										);
+									}}
+									icon={
+										<Image
+											source={require("../assets/tomato.png")}
+											style={{ width: 50, height: 50 }}
+										/>
+									}
+								/>
+								<Button
+									buttonStyle={{
+										backgroundColor: "white",
+										borderColor: colorToDefine5,
+										borderWidth: 3,
+										borderRadius: 10,
+										marginHorizontal: largeur * 0.01,
+									}}
+									onPress={() => {
+										setColorToDefine5(
+											colorToDefine5 == "#ddded9" ? "#0EA888" : "#ddded9",
+										);
+									}}
 									icon={
 										<Image
 											source={require("../assets/pois.png")}
@@ -335,7 +385,7 @@ function ProfileScreen(props) {
 												},
 											},
 										],
-										{ cancelable: false }
+										{ cancelable: false },
 									);
 								}}
 							></Button>
@@ -350,25 +400,6 @@ function ProfileScreen(props) {
 const styles = StyleSheet.create({
 	mainView: {
 		flex: 1,
-	},
-	header: {
-		backgroundColor: "#0EA888",
-		flexDirection: "column",
-		justifyContent: "center",
-		alignItems: "center",
-		height: (hauteur * 1) / 3,
-	},
-	logoText: {
-		fontWeight: "bold",
-		color: "white",
-		fontSize: 35,
-		fontFamily: "notoserif",
-	},
-	tagLineText: {
-		color: "white",
-		fontSize: 12,
-		textAlign: "center",
-		fontStyle: "italic",
 	},
 	background: {
 		flex: 1,
@@ -422,13 +453,6 @@ const styles = StyleSheet.create({
 		marginBottom: hauteur * 0.01,
 		marginTop: hauteur * 0.01,
 		color: "#0EA888",
-	},
-	cardButton: {
-		backgroundColor: "white",
-		borderColor: "#b8b6b6",
-		borderWidth: 2,
-		borderRadius: 10,
-		marginHorizontal: largeur * 0.01,
 	},
 	submitButton: {
 		color: "#ffffff",

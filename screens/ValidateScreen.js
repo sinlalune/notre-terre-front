@@ -7,6 +7,13 @@ const largeur = Dimensions.get("window").width;
 const hauteur = Dimensions.get("window").height;
 
 export default function ValidateScreen() {
+	useEffect(() => {
+		setTimeout(() => {
+			// Redirige vers la page Research après l'insciption
+			props.navigation.navigate("BottomNavigator", { screen: "Research" });
+		}, 800);
+	}, []);
+
 	return (
 		<View style={styles.mainView}>
 			<View style={styles.header}>
