@@ -136,6 +136,20 @@ function SnapScreen(props) {
 							Take a photo
 						</Text>
 					</TouchableOpacity>
+
+					<TouchableOpacity
+						style={styles.iconInt}
+						onPress={() => {
+							setFlash(
+								flash === Camera.Constants.FlashMode.off
+									? Camera.Constants.FlashMode.torch
+									: Camera.Constants.FlashMode.off,
+							);
+						}}
+					>
+						<IconFontAwesome name="flash" size={20} color="#ffffff" />
+						<Text style={styles.iconTextInt}>Flash</Text>
+					</TouchableOpacity>
 				</View>
 			</Camera>
 		);
