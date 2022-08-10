@@ -6,6 +6,7 @@ const OrderCard = require("../components/OrderCard");
 const ProductIcon = require("../components/productIcon");
 const LikeIcon = require("../components/LikeIcon");
 const AddIcon = require("../components/AddIcon");
+const HeaderMini = require("../components/HeaderMini");
 
 import {
   View,
@@ -18,6 +19,8 @@ import {
   Image,
 } from "react-native";
 import { Shadow } from "react-native-shadow-2";
+import { useFonts } from "expo-font";
+import AppLoading from "expo-app-loading";
 
 import { API_BACKEND } from "@env";
 
@@ -26,6 +29,7 @@ export default function GardenScreen(props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [order, setOrder] = useState({});
   const navigation = props.navigation;
+
   useEffect(() => {
     (async () => {
       console.log("garden started");
@@ -38,6 +42,15 @@ export default function GardenScreen(props) {
       setModalVisible(false);
     })();
   }, []);
+
+  let [fontsLoaded] = useFonts({
+    Dosis: require("../assets/fonts/Dosis-Bold.ttf"),
+    DosisBold: require("../assets/fonts/Dosis-ExtraBold.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
 
   // console.log("liste des produits", productList);
 
@@ -114,15 +127,22 @@ export default function GardenScreen(props) {
           </Pressable>
         </View>
       </Modal>
-
+      <HeaderMini />
       <View
         style={{
-          marginTop: 50,
+          marginTop: 20,
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <Text style={{ color: "#0CA789", fontWeight: "800", fontSize: 20 }}>
+        <Text
+          style={{
+            color: "#0CA789",
+            // fontWeight: "800",
+            fontSize: 30,
+            fontFamily: "DosisBold",
+          }}
+        >
           Mon Jardin
         </Text>
         <View
@@ -139,7 +159,7 @@ export default function GardenScreen(props) {
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text
               style={{
-                fontWeight: "800",
+                fontFamily: "DosisBold",
                 fontSize: 40,
                 marginRight: 10,
                 color: "#696565",
@@ -155,7 +175,7 @@ export default function GardenScreen(props) {
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text
               style={{
-                fontWeight: "800",
+                fontFamily: "DosisBold",
                 fontSize: 40,
                 marginRight: 10,
                 color: "#696565",
@@ -171,7 +191,7 @@ export default function GardenScreen(props) {
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text
               style={{
-                fontWeight: "800",
+                fontFamily: "DosisBold",
                 fontSize: 40,
                 marginRight: 10,
                 color: "#696565",

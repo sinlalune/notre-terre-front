@@ -12,6 +12,9 @@ const { useState, useEffect } = require("react");
 
 import { API_BACKEND } from "@env";
 
+import { useFonts } from "expo-font";
+import AppLoading from "expo-app-loading";
+
 import { Icon } from "@rneui/themed";
 
 const DomainInfo = (product) => {
@@ -59,6 +62,15 @@ const DomainInfo = (product) => {
     )
   );
 
+  let [fontsLoaded] = useFonts({
+    Dosis: require("../assets/fonts/Dosis-Bold.ttf"),
+    DosisBold: require("../assets/fonts/Dosis-ExtraBold.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   // console.log("adress_comp", domain_adress.lat, domain_adress.lon);
   return (
     <View
@@ -76,7 +88,9 @@ const DomainInfo = (product) => {
         <Text style={{ fontSize: 8, fontWeight: "300", color: "#4f4e4d" }}>
           Domaine
         </Text>
-        <Text style={{ fontSize: 10, fontWeight: "800", color: "#0CA789" }}>
+        <Text
+          style={{ fontSize: 12, fontFamily: "DosisBold", color: "#0CA789" }}
+        >
           {product.domain_name}
         </Text>
       </View>
@@ -95,7 +109,7 @@ const DomainInfo = (product) => {
           alignSelf: "flex-end",
         }}
       >
-        <Text style={{ fontSize: 10, fontWeight: "800", color: "white" }}>
+        <Text style={{ fontSize: 12, fontFamily: "DosisBold", color: "white" }}>
           {distance} Km
         </Text>
       </View>

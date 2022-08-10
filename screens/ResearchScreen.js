@@ -29,6 +29,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // Import of Icons
 import { Ionicons } from "@expo/vector-icons";
 
+import { useFonts } from "expo-font";
+import AppLoading from "expo-app-loading";
+
 const largeur = Dimensions.get("window").width;
 const hauteur = Dimensions.get("window").height;
 
@@ -66,8 +69,6 @@ export function ResearchScreen(props) {
       setProductList(response.product);
     })();
   }, []);
-
-  // console.log("liste 🚨", productList);
 
   const CardList = productList.map((product, i, props) => {
     const navigation = props.navigation;
@@ -120,6 +121,15 @@ export function ResearchScreen(props) {
       </Marker>
     );
   });
+
+  let [fontsLoaded] = useFonts({
+    Dosis: require("../assets/fonts/Dosis-Bold.ttf"),
+    DosisBold: require("../assets/fonts/Dosis-ExtraBold.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
 
   return (
     <>
@@ -220,9 +230,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 5,
     marginBottom: 10,
-    color: "#0EA888",
-    fontWeight: "bold",
-    fontSize: 25,
+    color: "#0CA789",
+    // fontWeight: "800",
+    fontSize: 30,
+    fontFamily: "DosisBold",
   },
   logoImg: {
     width: 25,

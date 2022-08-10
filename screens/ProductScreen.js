@@ -23,6 +23,11 @@ import { Shadow } from "react-native-shadow-2";
 
 import { API_BACKEND } from "@env";
 
+import { useFonts } from "expo-font";
+import AppLoading from "expo-app-loading";
+
+import { Icon } from "@rneui/themed";
+
 export default function GardenScreen(props) {
   const [product, setProduct] = useState({});
   const [producer, setProducer] = useState({});
@@ -42,6 +47,15 @@ export default function GardenScreen(props) {
     })();
   }, []);
 
+  let [fontsLoaded] = useFonts({
+    Dosis: require("../assets/fonts/Dosis-Bold.ttf"),
+    DosisBold: require("../assets/fonts/Dosis-ExtraBold.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <ScrollView>
       <View style={{ backgroundColor: "white", marginBottom: 20 }}>
@@ -53,13 +67,24 @@ export default function GardenScreen(props) {
             marginBottom: 20,
           }}
         >
-          <Text style={{ color: "#0CA789", fontWeight: "800", fontSize: 60 }}>
+          <Text
+            style={{ color: "#0CA789", fontFamily: "DosisBold", fontSize: 60 }}
+          >
             {product.name}
           </Text>
-          <Text style={{ fontSize: 50, fontWeight: "300", color: "#4f4e4d" }}>
+          <Text
+            style={{
+              fontSize: 50,
+              fontWeight: "200",
+              color: "#4f4e4d",
+              fontStyle: "italic",
+            }}
+          >
             {product.species_name}
           </Text>
-          <Text style={{ fontSize: 50, fontWeight: "800", color: "#0CA789" }}>
+          <Text
+            style={{ fontSize: 50, fontFamily: "DosisBold", color: "#0CA789" }}
+          >
             {product.label}
           </Text>
           <Image
@@ -93,6 +118,66 @@ export default function GardenScreen(props) {
             à certaines algues, dont la consommation est la plus développée en
             Extrême-Orient.
           </Text>
+          <View style={{ flexDirection: "row" }}>
+            <Pressable
+              onPress={() =>
+                props.navigation.navigate("BottomNavigator", {
+                  screen: props.screen,
+                })
+              }
+            >
+              <View
+                style={{
+                  backgroundColor: "#0CA789",
+                  width: 100,
+                  borderRadius: 5,
+                  alignSelf: "center",
+                  margin: 20,
+                  padding: 10,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 15,
+                    fontFamily: "Dosis",
+                    color: "white",
+                    alignSelf: "center",
+                  }}
+                >
+                  Adopter
+                </Text>
+              </View>
+            </Pressable>
+            <Pressable
+              onPress={() =>
+                props.navigation.navigate("BottomNavigator", {
+                  screen: props.screen,
+                })
+              }
+            >
+              <View
+                style={{
+                  backgroundColor: "#0CA789",
+                  width: 100,
+                  borderRadius: 5,
+                  alignSelf: "center",
+                  margin: 20,
+                  padding: 10,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 15,
+                    fontFamily: "Dosis",
+                    color: "white",
+                    alignSelf: "center",
+                  }}
+                >
+                  Acheter
+                </Text>
+              </View>
+            </Pressable>
+          </View>
         </View>
         <View style={{ backgroundColor: "#0CA789", padding: 20 }}>
           <View
@@ -108,27 +193,49 @@ export default function GardenScreen(props) {
               source={require("../assets/pin.png")}
             />
 
-            <View>
-              <Text style={{ fontSize: 30, fontWeight: "300", color: "white" }}>
+            <View style={{ marginLeft: 10 }}>
+              <Text style={{ fontSize: 20, fontWeight: "200", color: "white" }}>
                 Domaine
               </Text>
-              <Text style={{ color: "white", fontWeight: "800", fontSize: 30 }}>
+              <Text
+                style={{
+                  color: "white",
+                  fontFamily: "DosisBold",
+                  fontSize: 30,
+                }}
+              >
                 {product.domain_name}
               </Text>
             </View>
           </View>
-          <Text style={{ color: "white", fontWeight: "800", fontSize: 30 }}>
-            {producer.firstname}
-          </Text>
-          <Text style={{ fontSize: 30, fontWeight: "300", color: "white" }}>
-            {producer.lastname}
-          </Text>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Image
+              style={{ height: 70, width: 70 }}
+              source={require("../assets/farmer.png")}
+            />
+            <View style={{ marginLeft: 10 }}>
+              <Text style={{ color: "white", fontWeight: "200", fontSize: 20 }}>
+                {producer.firstname}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 30,
+                  fontFamily: "DosisBold",
+                  color: "white",
+                }}
+              >
+                {producer.lastname}
+              </Text>
+            </View>
+          </View>
           <Text
             style={{
               fontSize: 15,
               fontWeight: "300",
               color: "white",
               fontStyle: "italic",
+              marginBottom: 20,
+              marginTop: 20,
             }}
           >
             Un verger est un espace de terrain dévolu à la culture d'arbres
@@ -136,13 +243,7 @@ export default function GardenScreen(props) {
             types : les vergers conservatoires, les prés-vergers, les vergers
             commerciaux et de jardin potager.
           </Text>
-          <Pressable
-            onPress={() =>
-              props.navigation.navigate("BottomNavigator", {
-                screen: props.screen,
-              })
-            }
-          >
+          <Pressable onPress={() => props.navigation.navigate("Producer")}>
             <View
               style={{
                 backgroundColor: "white",
@@ -156,7 +257,7 @@ export default function GardenScreen(props) {
               <Text
                 style={{
                   fontSize: 15,
-                  fontWeight: "400",
+                  fontFamily: "Dosis",
                   color: "#0CA789",
                   alignSelf: "center",
                 }}
@@ -188,7 +289,7 @@ export default function GardenScreen(props) {
             <Text
               style={{
                 fontSize: 15,
-                fontWeight: "400",
+                fontFamily: "Dosis",
                 color: "#0CA789",
                 alignSelf: "center",
               }}
