@@ -39,9 +39,10 @@ import SnapScreen from "./screens/SnapScreen";
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+import tempAvatar from "./reducers/tempAvatar.reducers";
 import user from "./reducers/user.reducers";
 
-const store = createStore(combineReducers({ user }));
+const store = createStore(combineReducers({ user, tempAvatar }));
 
 const BottomNavigator = () => {
 	return (

@@ -62,7 +62,7 @@ function LoginScreen(props) {
 			props.saveUserData(body.searchUser);
 			AsyncStorage.setItem("user", JSON.stringify(body.searchUser));
 
-			props.navigation.navigate("BottomNavigator", { screen: "Research" });
+			props.navigation.navigate("BottomNavigator", { screen: "Profile" });
 		} else {
 			setListErrorsSignIn(body.error);
 		}
@@ -145,7 +145,7 @@ function LoginScreen(props) {
 												name="check-circle-o"
 												size={25}
 												color="white"
-												style={{ marginRight: 15 }}
+												style={{ marginRight: largeur * 0.015 }}
 											/>
 										}
 										title="Se connecter"
@@ -163,7 +163,7 @@ function LoginScreen(props) {
 												name="check-circle-o"
 												size={25}
 												color="white"
-												style={{ marginRight: 15 }}
+												style={{ marginRight: largeur * 0.015 }}
 											/>
 										}
 										title="Se connecter"
@@ -190,7 +190,7 @@ function LoginScreen(props) {
 										width: largeur * 0.43,
 										borderRadius: 10,
 										justifyContent: "space-around",
-										height: 43,
+										height: hauteur * 0.043,
 									}}
 									icon={
 										<Icon
@@ -211,7 +211,7 @@ function LoginScreen(props) {
 										borderColor: "#b8b6b6",
 										justifyContent: "space-around",
 										borderRadius: 10,
-										height: 43,
+										height: hauteur * 0.043,
 									}}
 									titleStyle={{ color: "grey" }}
 									icon={
@@ -220,9 +220,9 @@ function LoginScreen(props) {
 												uri: "https://cdn.icon-icons.com/icons2/2631/PNG/512/google_search_new_logo_icon_159150.png",
 											}}
 											style={{
-												width: 25,
-												height: 25,
-												marginRight: 20,
+												width: hauteur * 0.025,
+												height: hauteur * 0.025,
+												marginRight: largeur * 0.02,
 											}}
 										/>
 									}

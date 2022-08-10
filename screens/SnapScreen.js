@@ -102,26 +102,33 @@ function SnapScreen(props) {
 								});
 
 								const rawResponse = await fetch(
-									"http://192.168.1.73:3000/upload",
+									"http://10.2.2.164:3000/users/upload-snap",
 									{
 										method: "post",
 										body: data,
 									},
 								);
 								const response = await rawResponse.json();
-
-								props.onSnap(response.url);
+								// props.onSnap(response.url);
+								console.log(
+									"response.resultCloudinary.url in snapscreen",
+									response.resultCloudinary.url,
+								);
 
 								setVisible(false);
-								console.log("uri :", photo.uri);
-								console.log("width :", photo.width);
-								console.log("height :", photo.height);
-								console.log("exif :", photo.exif);
-								console.log("base64 :", photo.base64);
+								props.saveTempAvatar(response.resultCloudinary.url);
+								props.navigation.navigate("BottomNavigator", {
+									screen: "Profile",
+								});
+
+								// console.log("width :", photo.width);
+								// console.log("height :", photo.height);
+								// console.log("exif :", photo.exif);
+								// console.log("base64 :", photo.base64);
 							}
 						}}
 					>
-						<MaterialIcons name="stop-circle" size={90} color="#ffffff" />
+						<MaterialIcons name="stop-circle" size={88} color="#ffffff" />
 					</TouchableOpacity>
 
 					<TouchableOpacity
@@ -167,15 +174,6 @@ function SnapScreen(props) {
 	);
 }
 
-function mapDispatchToProps(dispatch) {
-	// viens enregistrer dans le store url photo
-	return {
-		onSnap: function (url) {
-			dispatch({ type: "addPicture", url });
-		},
-	};
-}
-
 const styles = StyleSheet.create({
 	iconStyle: {
 		flex: 1,
@@ -183,5 +181,14 @@ const styles = StyleSheet.create({
 		marginBottom: hauteur * 0.04,
 	},
 });
+
+function mapDispatchToProps(dispatch) {
+	// viens enregistrer dans le store url photo
+	return {
+		saveTempAvatar: function (url) {
+			dispatch({ type: "saveTempAvatar", newAvatar: url });
+		},
+	};
+}
 
 export default connect(null, mapDispatchToProps)(SnapScreen);

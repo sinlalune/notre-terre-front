@@ -20,9 +20,9 @@ const SuccessScreen = (props) => {
 			<Header />
 
 			<Image
-				source={require("../assets/success.png")}
+				source={require("../assets/success.gif")}
 				style={{
-					height: 150,
+					height: 200,
 					resizeMode: "contain",
 					marginTop: hauteur * 0.05,
 					color: "white",

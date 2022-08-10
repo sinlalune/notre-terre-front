@@ -20,9 +20,9 @@ const ValidateScreen = (props) => {
 			<Header />
 
 			<Image
-				source={require("../assets/validate.png")}
+				source={require("../assets/validate.gif")}
 				style={{
-					height: 150,
+					height: 200,
 					resizeMode: "contain",
 					marginTop: hauteur * 0.05,
 				}}

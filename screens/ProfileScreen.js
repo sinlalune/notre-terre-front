@@ -10,6 +10,7 @@ import {
 	Image,
 	TextInput,
 	Alert,
+	TouchableOpacity,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Button } from "react-native-elements";
@@ -42,8 +43,10 @@ function ProfileScreen(props) {
 		// props.clearUserData();
 	};
 
+	console.log("❌❌❌❌❌❌❌❌❌tempAvatar dans store", props.tempAvatar);
+
 	var handleSubmitSignUp = async (props) => {
-		const data = await fetch(`http://10.2.2.164:3000}/users/sign-up`, {
+		const data = await fetch(`http://10.2.2.164:3000/users/sign-up`, {
 			method: "POST",
 			headers: { "Content-Type": "application/x-www-form-urlencoded" },
 			body: `
@@ -90,17 +93,40 @@ function ProfileScreen(props) {
 
 					<View style={styles.containerGeneral}>
 						<Text style={styles.titleCategory}>Mon profil</Text>
-						<Image
-							source={require("../assets/avatarphoto.png")}
-							style={{
-								width: 120,
-								height: 120,
-								alignContent: "center",
-								alignItems: "center",
-								marginBottom: largeur * 0.02,
-								alignSelf: "center",
-							}}
-						/>
+						<View>
+							<TouchableOpacity
+								onPress={() => {
+									props.navigation.navigate("Snap");
+								}}
+							>
+								{props.tempAvatar ? (
+									<Image
+										source={{ uri: props.tempAvatar }}
+										style={{
+											width: 120,
+											height: 120,
+											alignContent: "center",
+											alignItems: "center",
+											marginBottom: hauteur * 0.01,
+											alignSelf: "center",
+											borderRadius: 500,
+										}}
+									/>
+								) : (
+									<Image
+										source={require("../assets/avatarphoto.png")}
+										style={{
+											width: 120,
+											height: 120,
+											alignContent: "center",
+											alignItems: "center",
+											marginBottom: hauteur * 0.01,
+											alignSelf: "center",
+										}}
+									/>
+								)}
+							</TouchableOpacity>
+						</View>
 						<Text
 							style={{
 								alignContent: "center",
@@ -468,7 +494,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-function mapStateToProps(state) {
+function mapDispatchToProps(dispatch) {
 	return {
 		saveUserData: function (data) {
 			dispatch({ type: "saveUserData", data: data });
@@ -476,4 +502,8 @@ function mapStateToProps(state) {
 	};
 }
 
-export default connect(mapStateToProps, null)(ProfileScreen);
+function mapStateToProps(state) {
+	return { tempAvatar: state.tempAvatar };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);

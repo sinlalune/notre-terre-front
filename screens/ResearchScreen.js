@@ -51,22 +51,22 @@ export function ResearchScreen(props) {
 		askPermissions();
 	}, []);
 
-	console.log("This is the user position", currentLatitude, currentLongitude);
+	//console.log("This is the user position", currentLatitude, currentLongitude);
 
 	const [productList, setProductList] = useState([]);
 
 	useEffect(() => {
 		(async () => {
-			console.log("🤖 research page started");
+			//console.log("🤖 research page started");
 			const loadProductList = await fetch(`${API_BACKEND}/card/productList`);
 			const response = await loadProductList.json();
-			console.log("response", response.product);
+			//console.log("response", response.product);
 
 			setProductList(response.product);
 		})();
 	}, []);
 
-	console.log("liste 🚨", productList);
+	//console.log("liste 🚨", productList);
 
 	const CardList = productList.map((product, i) => {
 		return (
@@ -85,7 +85,7 @@ export function ResearchScreen(props) {
 		);
 	});
 
-	console.log("cardlist", CardList);
+	//	console.log("cardlist", CardList);
 
 	const [locAgri, setLocAgri] = useState([]);
 

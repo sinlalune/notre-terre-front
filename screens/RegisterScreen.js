@@ -31,6 +31,7 @@ export default function RegisterScreen(props) {
 	const [signUpStreet, setSignUpStreet] = useState("");
 	const [signUpZipcode, setSignUpZipcode] = useState("");
 	const [signUpCity, setSignUpCity] = useState("");
+	const [signUpAvatar, setSignUpAvatar] = useState("");
 
 	const [colorToDefine, setColorToDefine] = useState("#ddded9");
 	const [colorToDefine2, setColorToDefine2] = useState("#ddded9");
@@ -86,23 +87,17 @@ export default function RegisterScreen(props) {
 						<View style={styles.containerGeneral}>
 							<Text style={styles.titleCategory}>S'enregistrer</Text>
 							<View>
-								<TouchableOpacity
-									onPress={() => {
-										props.navigation.navigate("Snap");
+								<Image
+									source={require("../assets/avatar.png")}
+									style={{
+										width: 120,
+										height: 120,
+										alignContent: "center",
+										alignItems: "center",
+										marginBottom: hauteur * 0.01,
+										alignSelf: "center",
 									}}
-								>
-									<Image
-										source={require("../assets/avatarphoto.png")}
-										style={{
-											width: 120,
-											height: 120,
-											alignContent: "center",
-											alignItems: "center",
-											marginBottom: hauteur * 0.01,
-											alignSelf: "center",
-										}}
-									/>
-								</TouchableOpacity>
+								/>
 							</View>
 							<Text
 								style={{
