@@ -132,6 +132,7 @@ export default function BasketScreen() {
 				}}
 				title="   Payer"
 				icon={<FontAwesome5 name="money-check" size={24} color="white" />}
+				onPress={() => props.navigation.navigate("Success")}
 			></Button>
 		</>
 	);

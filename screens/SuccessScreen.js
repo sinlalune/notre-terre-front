@@ -7,7 +7,7 @@ const Header = require("../components/Header");
 const largeur = Dimensions.get("window").width;
 const hauteur = Dimensions.get("window").height;
 
-const ValidateScreen = (props) => {
+const SuccessScreen = (props) => {
 	useEffect(() => {
 		setTimeout(() => {
 			// Redirige vers la page Research après l'insciption
@@ -20,11 +20,12 @@ const ValidateScreen = (props) => {
 			<Header />
 
 			<Image
-				source={require("../assets/validate.gif")}
+				source={require("../assets/success.gif")}
 				style={{
 					height: 200,
 					resizeMode: "contain",
 					marginTop: hauteur * 0.05,
+					color: "white",
 				}}
 			/>
 			<Text
@@ -35,13 +36,13 @@ const ValidateScreen = (props) => {
 					marginTop: hauteur * 0.02,
 				}}
 			>
-				Inscription validée !
+				Merci pour achat !
 			</Text>
 		</View>
 	);
 };
 
-export default ValidateScreen;
+export default SuccessScreen;
 
 const styles = StyleSheet.create({
 	mainView: {

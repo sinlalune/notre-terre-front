@@ -52,16 +52,15 @@ export function ResearchScreen(props) {
 		askPermissions();
 	}, []);
 
-	console.log("This is the user position", currentLatitude, currentLongitude);
+	//console.log("This is the user position", currentLatitude, currentLongitude);
 
 	const [productList, setProductList] = useState([]);
 
 	useEffect(() => {
 		(async () => {
-			console.log("🤖 research page started");
+			//console.log("🤖 research page started");
 			const loadProductList = await fetch(`${API_BACKEND}/card/productList`);
 			const response = await loadProductList.json();
-			// console.log("response", response.product);
 
 			setProductList(response.product);
 		})();
