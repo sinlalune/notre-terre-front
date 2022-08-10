@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 
 import { Icon } from "@rneui/themed";
@@ -23,24 +24,31 @@ const ProductName = (product) => {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
+
   return (
     <View>
-      <Text style={{ fontSize: 13, fontFamily: "DosisBold", color: "#868686" }}>
-        {product.name}
-      </Text>
-      <Text
-        style={{
-          fontSize: 10,
-          fontWeight: "300",
-          color: "#4f4e4d",
-          fontStyle: "italic",
-        }}
-      >
-        {product.species}
-      </Text>
-      <Text style={{ fontSize: 15, fontFamily: "DosisBold", color: "#0CA789" }}>
-        {product.label}
-      </Text>
+      <View>
+        <Text
+          style={{ fontSize: 13, fontFamily: "DosisBold", color: "#868686" }}
+        >
+          {product.name}
+        </Text>
+        <Text
+          style={{
+            fontSize: 10,
+            fontWeight: "300",
+            color: "#4f4e4d",
+            fontStyle: "italic",
+          }}
+        >
+          {product.species}
+        </Text>
+        <Text
+          style={{ fontSize: 15, fontFamily: "DosisBold", color: "#0CA789" }}
+        >
+          {product.label}
+        </Text>
+      </View>
     </View>
   );
 };

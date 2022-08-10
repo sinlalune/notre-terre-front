@@ -8,8 +8,14 @@ import {
   ScrollView,
   TextInput,
   Pressable,
+  TouchableOpacity,
 } from "react-native";
 import { Shadow } from "react-native-shadow-2";
+
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
+
 const ProductName = require("./ProductName");
 const ProducerInfo = require("../components/ProducerInfo");
 const DomainInfo = require("../components/DomainInfo");
@@ -27,7 +33,8 @@ const ProductCard = (props) => {
   async function handleClickAddProduct() {
     await fetch(`${API_BACKEND}/card/productList`);
   }
-  console.log("productcardprops", props);
+  const navigation = useNavigation();
+  //   console.log("productcardprops", props);
   const product = props;
   return (
     <View
@@ -66,22 +73,23 @@ const ProductCard = (props) => {
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Pressable
-            //   onPress={() =>
-            //     props.navigation.navigate("Product", {
-            //       product_id: product.product_id,
-            //       screen: "Garden",
-            //     })
-            //   }
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Product", {
+                  product_id: product.product_id,
+                  screen: "Research",
+                });
+              }}
             >
               <View style={{ alignSelf: "flex-start" }}>
                 <ProductName
                   name={product.name}
                   species={product.species}
                   label={product.label}
+                  product_id={product.product_id}
                 />
               </View>
-            </Pressable>
+            </TouchableOpacity>
             <View style={{ alignSelf: "flex-end" }}>
               <ProductPriceQuantity kilo_price={product.kilo_price} />
               <ProductAvaibility date_harvest={product.date_harvest} />

@@ -12,6 +12,7 @@ import {
 import { Shadow } from "react-native-shadow-2";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { useNavigation } from "@react-navigation/native";
 
 const ProductName = require("./ProductName");
 const ProducerInfo = require("../components/ProducerInfo");
@@ -28,6 +29,7 @@ import { Icon } from "@rneui/themed";
 const OrderCard = (props) => {
   console.log("props :", props);
   const product = props;
+  const navigation = useNavigation();
   //   const product = props.product;
   return (
     <View
@@ -52,7 +54,7 @@ const OrderCard = (props) => {
           >
             <Pressable
               onPress={() =>
-                props.navigation.navigate("Product", {
+                navigation.navigate("Product", {
                   product_id: product.product_id,
                   screen: "Garden",
                 })
