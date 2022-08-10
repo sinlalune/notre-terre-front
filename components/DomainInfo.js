@@ -7,6 +7,7 @@ import {
 	Image,
 	ScrollView,
 	TextInput,
+	TouchableOpacity,
 } from "react-native";
 const { useState, useEffect } = require("react");
 
@@ -17,8 +18,11 @@ import AppLoading from "expo-app-loading";
 
 import { Icon } from "@rneui/themed";
 
+import { useNavigation } from "@react-navigation/native";
+
 const DomainInfo = (product) => {
 	const testAdress = { lat: 43.293112, lon: 5.37023 };
+	const navigation = useNavigation();
 
 	function degreesToRadians(degrees) {
 		return (degrees * Math.PI) / 180;
@@ -85,14 +89,20 @@ const DomainInfo = (product) => {
 				<Image style={styles.icon} source={require("../assets/pin.png")} />
 			</View>
 			<View style={{ marginTop: 5, marginRight: 10 }}>
-				<Text style={{ fontSize: 8, fontWeight: "300", color: "#4f4e4d" }}>
-					Domaine
-				</Text>
-				<Text
-					style={{ fontSize: 12, fontFamily: "DosisBold", color: "#0CA789" }}
+				<TouchableOpacity
+					onPress={() => {
+						navigation.navigate("Producer");
+					}}
 				>
-					{product.domain_name}
-				</Text>
+					<Text style={{ fontSize: 8, fontWeight: "300", color: "#4f4e4d" }}>
+						Domaine
+					</Text>
+					<Text
+						style={{ fontSize: 12, fontFamily: "DosisBold", color: "#0CA789" }}
+					>
+						{product.domain_name}
+					</Text>
+				</TouchableOpacity>
 			</View>
 
 			<View

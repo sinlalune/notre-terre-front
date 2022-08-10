@@ -101,6 +101,7 @@ export default function App() {
 					<Stack.Screen name="Register" component={RegisterScreen} />
 					<Stack.Screen name="Validate" component={ValidateScreen} />
 					<Stack.Screen name="Producer" component={ProducerScreen} />
+					<Stack.Screen name="Product" component={ProductScreen} />
 					<Stack.Screen name="BottomNavigator" component={BottomNavigator} />
 				</Stack.Navigator>
 			</NavigationContainer>

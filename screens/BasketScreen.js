@@ -11,9 +11,6 @@ import { DataTable } from "react-native-paper";
 const HeaderMini = require("../components/HeaderMini");
 
 export default function BasketScreen() {
-	const [cart, setCart] = useState([]);
-	const [addedToCart, setAddedToCart] = useState(false);
-
 	return (
 		<>
 			<View
@@ -48,7 +45,7 @@ export default function BasketScreen() {
 					<DataTable.Title>Type</DataTable.Title>
 					<DataTable.Title>Produit</DataTable.Title>
 					<DataTable.Title>Prix Unitaire</DataTable.Title>
-					<DataTable.Title numeric>Qantité</DataTable.Title>
+					<DataTable.Title numeric>Quantité</DataTable.Title>
 					<DataTable.Title numeric>Prix</DataTable.Title>
 				</DataTable.Header>
 
