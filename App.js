@@ -23,6 +23,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 //Import of Icons
 import { Ionicons } from "@expo/vector-icons";
 
+//Import of Custom Fonts
+import { useFonts } from "expo-font";
+import AppLoading from "expo-app-loading";
+
 //Import of all Screens
 import LoginScreen from "./screens/LoginScreen";
 import ProfileScreen from "./screens/ProfileScreen";
@@ -78,6 +82,15 @@ const BottomNavigator = () => {
 };
 
 export default function App() {
+	let [fontsLoaded] = useFonts({
+		Dosis: require("./assets/fonts/Dosis-Bold.ttf"),
+		DosisBold: require("./assets/fonts/Dosis-ExtraBold.ttf"),
+	});
+
+	if (!fontsLoaded) {
+		return <AppLoading />;
+	}
+
 	return (
 		<Provider store={store}>
 			<NavigationContainer>

@@ -8,6 +8,8 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 import { DataTable } from "react-native-paper";
 
+const HeaderMini = require("../components/HeaderMini");
+
 export default function BasketScreen() {
 	const [cart, setCart] = useState([]);
 	const [addedToCart, setAddedToCart] = useState(false);
@@ -23,22 +25,16 @@ export default function BasketScreen() {
 					marginBottom: 15,
 				}}
 			>
-				<View
-					style={{
-						marginBottom: 25,
-					}}
-				/>
-				<Text style={styles.logoText}>
-					Mon Panier{" "}
-					<Image
-						style={styles.logoImg}
-						source={require("../assets/logonotreterre.png")}
-					/>
-				</Text>
+				<HeaderMini />
 			</View>
 			<Text
 				style={{
-					marginTop: 50,
+					marginTop: 30,
+					marginBottom: 20,
+					fontFamily: "DosisBold",
+					fontSize: 30,
+					color: "#0EA888",
+					textAlign: "center",
 				}}
 			>
 				Récapitulatif
@@ -158,73 +154,3 @@ const styles = StyleSheet.create({
 		marginLeft: 10,
 	},
 });
-
-/*
-      <Text>Your Order:</Text>
-      <%if(dataCardPaint.length <1){ %>
-        <Text>No article in the basket</Text>
-     <% } else{ %>
-
-    
-      <View>
-        <Table>
-            <Table.head>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Picture</th>
-                <th scope="col">Month</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Price</th>
-                <th scope="col">Total</th>
-                <th scope="col">Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% 
-              var totalCmd=0
-              for (let i=0; i<dataCardPaint.length; i++){ 
-                %>
-              <tr class="basket-item">
-                <th scope="row">#<%= i %></th>
-                <td><img src=<%= dataCardPaint[i].url %> class="basket-img"></td>
-                <td>
-                  <%= dataCardPaint[i].name %>
-                </td>
-                <td>
-                    <form action="/update-shop" method="POST">
-                        <input type="hidden" name="position" value="<%=i%>">
-                        <input type="text" name="quantity" value="<%= dataCardPaint[i].quantity %>">
-                        <button class="btn btn-outline-info btn-sm" name="button"><i class="fas fa-sync-alt"></i></button>
-                    </form>
-                </td>
-                <td><%= dataCardPaint[i].price %>€</td>
-                <td><%= dataCardPaint[i].price * dataCardPaint[i].quantity %>€</td>
-                <td><a href="/delete-shop?position=<%=i%>"><button class="btn btn-outline-info btn-sm" name="button"><i class="far fa-trash-alt"></i></button></a></td>
-              </tr>
-<%
-totalCmd = dataCardPaint[i].price * dataCardPaint[i].quantity + totalCmd;
-
-} %>
-
-              <tr>
-                <th scope="row"></th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="total-box">Total Basket : </td>
-                  <td><%= totalCmd %>€</td>
-                
-                <td></td>
-              </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="row">
-        <div class="col-12 text-right">
-          <form action="/create-checkout-session" method="POST">
-            <button type="submit" id="checkout-button" class="btn btn-outline-info btn-sm btn-checkout" name="button-checkout">Checkout</button>
-          </form>
-        </div>
-    </div>
-    <% } %> 
-*/

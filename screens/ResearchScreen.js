@@ -29,6 +29,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // Import of Icons
 import { Ionicons } from "@expo/vector-icons";
 
+import { useFonts } from "expo-font";
+import AppLoading from "expo-app-loading";
+
 const largeur = Dimensions.get("window").width;
 const hauteur = Dimensions.get("window").height;
 
@@ -66,6 +69,7 @@ export function ResearchScreen(props) {
 		})();
 	}, []);
 
+	console.log("this is my IP address", API_BACKEND);
 	console.log("liste 🚨", productList);
 
 	const CardList = productList.map((product, i) => {
@@ -146,8 +150,8 @@ export function ResearchScreen(props) {
 			<MapView
 				style={{ flex: 1, marginLeft: 10, marginRight: 10 }}
 				initialRegion={{
-					/* 					latitude: 48.860337,
-					longitude: 2.344355, */
+					latitude: 48.860337,
+					longitude: 2.344355,
 					latitudeDelta: 0.0922,
 					longitudeDelta: 0.0421,
 				}}
@@ -216,8 +220,8 @@ const styles = StyleSheet.create({
 		marginTop: 5,
 		marginBottom: 10,
 		color: "#0EA888",
-		fontWeight: "bold",
-		fontSize: 25,
+		fontFamily: "DosisBold",
+		fontSize: 30,
 	},
 	logoImg: {
 		width: 25,

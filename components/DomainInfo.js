@@ -7,6 +7,7 @@ import {
 	Image,
 	ScrollView,
 	TextInput,
+	Pressable,
 } from "react-native";
 const { useState, useEffect } = require("react");
 
