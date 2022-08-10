@@ -31,6 +31,7 @@ import AppLoading from "expo-app-loading";
 import LoginScreen from "./screens/LoginScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import ProducerScreen from "./screens/ProducerScreen";
+import ProductScreen from "./screens/ProductScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import BasketScreen from "./screens/BasketScreen";
 import GardenScreen from "./screens/GardenScreen";
@@ -46,42 +47,43 @@ import user from "./reducers/user.reducers";
 const store = createStore(combineReducers({ user }));
 
 const BottomNavigator = () => {
-	return (
-		<Tab.Navigator
-			screenOptions={({ route }) => ({
-				tabBarIcon: ({ color }) => {
-					let iconName;
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color }) => {
+          let iconName;
 
-					if (route.name == "Garden") {
-						iconName = "leaf";
-					} else if (route.name == "Research") {
-						iconName = "ios-search-sharp";
-					} else if (route.name == "Basket") {
-						iconName = "basket";
-					} else if (route.name == "Profile") {
-						iconName = "person";
-					}
+          if (route.name == "Garden") {
+            iconName = "leaf";
+          } else if (route.name == "Research") {
+            iconName = "ios-search-sharp";
+          } else if (route.name == "Basket") {
+            iconName = "basket";
+          } else if (route.name == "Profile") {
+            iconName = "person";
+          }
 
-					return <Ionicons name={iconName} size={25} color={color} />;
-				},
-			})}
-			tabBarOptions={{
-				activeTintColor: "#000000",
-				inactiveTintColor: "#FFFFFF",
-				style: {
-					backgroundColor: "#0CA789",
-				},
-			}}
-		>
-			<Tab.Screen name="Garden" component={GardenScreen} />
-			<Tab.Screen name="Research" component={ResearchScreen} />
-			<Tab.Screen name="Basket" component={BasketScreen} />
-			<Tab.Screen name="Profile" component={ProfileScreen} />
-		</Tab.Navigator>
-	);
+          return <Ionicons name={iconName} size={25} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: "#000000",
+        inactiveTintColor: "#FFFFFF",
+        style: {
+          backgroundColor: "#0CA789",
+        },
+      }}
+    >
+      <Tab.Screen name="Garden" component={GardenScreen} />
+      <Tab.Screen name="Research" component={ResearchScreen} />
+      <Tab.Screen name="Basket" component={BasketScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
+    </Tab.Navigator>
+  );
 };
 
 export default function App() {
+<<<<<<< HEAD
 	let [fontsLoaded] = useFonts({
 		Dosis: require("./assets/fonts/Dosis-Bold.ttf"),
 		DosisBold: require("./assets/fonts/Dosis-ExtraBold.ttf"),
@@ -105,13 +107,30 @@ export default function App() {
 			</NavigationContainer>
 		</Provider>
 	);
+=======
+  return (
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="SplashScreen" component={SplashScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen name="Validate" component={ValidateScreen} />
+          <Stack.Screen name="Producer" component={ProducerScreen} />
+          <Stack.Screen name="Product" component={ProductScreen} />
+          <Stack.Screen name="BottomNavigator" component={BottomNavigator} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
+  );
+>>>>>>> 9aeb7863722f2e0bf414b908d2da5c8b006960dc
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
-	},
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
