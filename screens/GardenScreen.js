@@ -17,36 +17,101 @@ import {
   Modal,
   Pressable,
   Image,
+  TouchableOpacity
 } from "react-native";
 import { Shadow } from "react-native-shadow-2";
+import React from 'react';
+import {connect} from 'react-redux';
 
 import { API_BACKEND } from "@env";
 
-export default function GardenScreen(props) {
+function GardenScreen(props) {
+  const [orderList, setOrderList ] = useState([])
+  const [filteredOrderList, setfilteredOrderList] = useState([]);
+
+  const [productIdList, setIdList] = useState([])
   const [productList, setProductList] = useState([]);
+
+
   const [modalVisible, setModalVisible] = useState(false);
   const [modalProduct, setModalProduct] = useState({});
+
+  const [seedingCount, setSeedingCount] = useState (0)
+  const [growingCount, setGrowingCount] = useState (2)
+  const [deliveryCount, setDeliveryCount] = useState (2)
+
   const navigation = props.navigation;
 
+  const unfilterOrders = () => {  let ids = orderList.map((order)=>{
+    return order.product
+  })
+  console.log('ids unfiltered', ids)
+  setProductList(ids)
+  console.log('unfilter')}
+
+  const filterOrders = (filter) => {
+    let filtered =orderList.filter(order => {
+      return order.current_state === filter
+    })
+    setfilteredOrderList(filtered)
+    console.log('filterorders', filteredOrderList )
+    let ids = filteredOrderList.map((order)=>{
+      return order.product
+    })
+    console.log('ids filtered', ids)
+    setProductList(ids)
+
+  }
+  
+  const userlog = props.userLogged._id
+  console.log(userlog)
+
+  // var stateCount = () => {
+  //   for (let i=0; i<orderList.length; i+1) {
+  //     console.log(orderList[i].current_state)
+  //     if (orderList[i].current_state == 'Seeding'){
+  //       setSeedingCount(seedingCount => seedingCount + 1)
+  //     }
+  //     else if (orderList[i].current_state == 'Growing'){
+  //       setGrowingCount(growingCount => growingCount + 1)
+  //     }
+  //     else if (orderList[i].current_state == 'On delivery'){
+  //       setDeliveryCount(deliveryCount => deliveryCount + 1)
+  //     }
+  //     console.log('loop', i)
+  //   }}
+ 
   useEffect(() => {
     (async () => {
       console.log("garden started");
-      const loadProductList = await fetch(
-        `https://sinlalune.herokuapp.com/card/productlist`
+      const loadOrderList = await fetch(
+        `https://back13007.herokuapp.com/card/orders?user_id=` + userlog
       );
-      const response = await loadProductList.json();
-      // console.log("response", response.product);
+      const response = await loadOrderList.json();
+      console.log("response", response)
 
-      setProductList(response.product);
-      setModalVisible(false);
+      setOrderList(response.orders);
+      console.log('orders', orderList)
+      let ids = orderList.map((order)=>{
+        return order.product
+      })
+      console.log('ids', ids)
+      setProductList(ids)
+      // console.log("response", response.product);
+      
+      console.log('prod' , productList);
+       setModalVisible(false);
     })();
   }, []);
-
+  
+  // stateCount();
+  // console.log('seeding',seedingCount,'growing',growingCount,'delivery', deliveryCount)
+ 
   // console.log("liste des produits", productList);
 
   const OrderCardMiniList = productList.map((product, i) => {
     return (
-      <Pressable
+      <TouchableOpacity
         key={i}
         onPress={() => {
           console.log("click détecté", modalVisible);
@@ -67,7 +132,7 @@ export default function GardenScreen(props) {
           product_id={product._id}
           icon_type={product.icon_type}
         />
-      </Pressable>
+      </TouchableOpacity>
     );
   });
 
@@ -105,7 +170,7 @@ export default function GardenScreen(props) {
             navigation={navigation}
             icon_type={modalProduct.icon_type}
           />
-          <Pressable onPress={() => setModalVisible(!modalVisible)}>
+          <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
             <Image
               style={{
                 marginTop: 60,
@@ -115,10 +180,12 @@ export default function GardenScreen(props) {
               }}
               source={require("../assets/remove.png")}
             />
-          </Pressable>
+          </TouchableOpacity>
         </View>
+        
       </Modal>
       <HeaderMini />
+      
       <View
         style={{
           marginTop: 20,
@@ -126,6 +193,7 @@ export default function GardenScreen(props) {
           alignItems: "center",
         }}
       >
+        <TouchableOpacity onPress={ () => unfilterOrders()}>
         <Text
           style={{
             color: "#0CA789",
@@ -136,6 +204,7 @@ export default function GardenScreen(props) {
         >
           Mon Jardin
         </Text>
+        </TouchableOpacity>
         <View
           style={{
             flexDirection: "row",
@@ -147,6 +216,7 @@ export default function GardenScreen(props) {
             zIndex: 1000,
           }}
         >
+          <TouchableOpacity onPress={() => filterOrders("Seeding")}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text
               style={{
@@ -156,13 +226,15 @@ export default function GardenScreen(props) {
                 color: "#696565",
               }}
             >
-              4
+              {seedingCount}
             </Text>
             <Image
               style={{ width: 40, height: 40 }}
               source={require("../assets/003-sesame.png")}
             />
           </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => filterOrders("Growing")}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text
               style={{
@@ -172,13 +244,15 @@ export default function GardenScreen(props) {
                 color: "#696565",
               }}
             >
-              2
+              {growingCount}
             </Text>
             <Image
               style={{ width: 40, height: 40 }}
               source={require("../assets/001-plant.png")}
             />
           </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => filterOrders("On delivery")}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text
               style={{
@@ -188,13 +262,14 @@ export default function GardenScreen(props) {
                 color: "#696565",
               }}
             >
-              5
+              {deliveryCount}
             </Text>
             <Image
               style={{ width: 40, height: 40 }}
               source={require("../assets/002-package.png")}
             />
           </View>
+          </TouchableOpacity>
         </View>
 
         <ScrollView style={{ backgroundColor: "white", paddingBottom: 600 }}>
@@ -225,3 +300,9 @@ export default function GardenScreen(props) {
     </View>
   );
 }
+
+function mapStateToProps(state) {
+  return { userLogged: state.user }
+ }  
+
+export default connect(mapStateToProps, null)(GardenScreen);

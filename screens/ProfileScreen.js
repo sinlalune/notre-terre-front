@@ -17,7 +17,7 @@ import { Button } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { connect } from "react-redux";
 
-const Header = require("../components/Header");
+const HeaderMini = require("../components/HeaderMini");
 const largeur = Dimensions.get("window").width;
 const hauteur = Dimensions.get("window").height;
 
@@ -83,7 +83,7 @@ function ProfileScreen(props) {
 				extraHeight={(hauteur * 1) / 3}
 				contentContainerStyle={{ flexGrow: 1 }} // make the scrollView full screen
 			>
-				<Header />
+				<HeaderMini />
 
 				<ImageBackground
 					source={require("../assets/loginbackground.jpg")}

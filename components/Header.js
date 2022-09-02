@@ -7,13 +7,6 @@ const hauteur = Dimensions.get("window").height;
 const Header = () => {
 	return (
 		<View style={styles.header}>
-			<Image
-				source={require("../assets/logonotreterre.png")}
-				style={{
-					height: hauteur * 0.18,
-					resizeMode: "contain",
-				}}
-			/>
 			<Text style={styles.logoText}>Notre Terre</Text>
 			<Text style={styles.tagLineText}>
 				Vous aussi, invitez les meilleurs aliments dans votre cuisine
@@ -28,7 +21,9 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		justifyContent: "center",
 		alignItems: "center",
-		height: (hauteur * 1) / 3,
+		height: 100,
+		fontFamily: "Dosis"
+	
 	},
 	logoText: {
 		fontWeight: "bold",

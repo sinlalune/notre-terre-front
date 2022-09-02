@@ -23,7 +23,7 @@ const ProducerInfo = (product) => {
     (async () => {
       console.log("producer started started");
       const loadProducerInfo = await fetch(
-        `${API_BACKEND}/card/producer?producer_id=` + product.producer
+        `https://back13007.herokuapp.com/card/producer?producer_id=` + product.producer
       );
       const response = await loadProducerInfo.json();
       console.log("response producer info : ", response);

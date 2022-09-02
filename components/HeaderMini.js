@@ -20,14 +20,6 @@ const HeaderMini = () => {
 
   return (
     <View style={styles.header}>
-      <Image
-        source={require("../assets/logonotreterre.png")}
-        style={{
-          height: hauteur * 0.08,
-          width: largeur * 0.2,
-          marginRight: largeur * 0.02,
-        }}
-      />
       <Text style={styles.logoText}>Notre Terre</Text>
     </View>
   );
@@ -45,8 +37,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 24,
     fontFamily: "DosisBold",
-    marginTop: hauteur * 0.015,
-    marginRight: largeur * 0.21,
+    marginTop : 20
+ 
   },
 });
 

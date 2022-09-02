@@ -12,7 +12,7 @@ const HeaderMini = require("../components/HeaderMini");
 
 export default function BasketScreen() {
 	return (
-		<>
+	<View>
 			<View
 				style={{
 					flexDirection: "column",
@@ -24,6 +24,7 @@ export default function BasketScreen() {
 			>
 				<HeaderMini />
 			</View>
+			<View style ={{padding:20}}>
 			<Text
 				style={{
 					marginTop: 30,
@@ -134,7 +135,8 @@ export default function BasketScreen() {
 				icon={<FontAwesome5 name="money-check" size={24} color="white" />}
 				onPress={() => props.navigation.navigate("Success")}
 			></Button>
-		</>
+			</View>
+		</View>
 	);
 }
 

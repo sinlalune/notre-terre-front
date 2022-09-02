@@ -31,7 +31,7 @@ import { API_BACKEND } from "@env";
 
 const ProductCard = (props) => {
   async function handleClickAddProduct() {
-    await fetch(`${API_BACKEND}/card/productList`);
+    await fetch(`https://back13007.herokuapp.com/card/productList`);
   }
   const navigation = useNavigation();
   //   console.log("productcardprops", props);

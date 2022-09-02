@@ -34,7 +34,7 @@ export default function GardenScreen(props) {
       console.log("product page start");
       console.log("product :", props.route.params.product_id);
       const loadProductInfo = await fetch(
-        `https://sinlalune.herokuapp.com/card/product?product_id=` +
+        `https://back13007.herokuapp.com/card/product?product_id=` +
           props.route.params.product_id
       );
       const response = await loadProductInfo.json();

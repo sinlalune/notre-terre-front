@@ -60,7 +60,7 @@ export function ResearchScreen(props) {
   useEffect(() => {
     (async () => {
       //console.log("🤖 research page started");
-      const loadProductList = await fetch(`${API_BACKEND}/card/productList`);
+      const loadProductList = await fetch(`https://back13007.herokuapp.com/card/productList`);
       const response = await loadProductList.json();
 
       setProductList(response.product);
